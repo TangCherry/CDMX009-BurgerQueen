@@ -17,7 +17,7 @@ const Menu = (props) => {
         setUser(auth.currentUser)
     }else {
       console.log('no vive')
-      props.history.push('/Login')
+      props.history.push('/')
     }
     }, [])
 
@@ -28,7 +28,7 @@ const Menu = (props) => {
             props.history.push('/Meal')
           }
     const tableIcon = () => {
-            props.history.push('/Table')
+            props.history.push('/Floor')
           }
 
     return (

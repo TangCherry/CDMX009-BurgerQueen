@@ -3,19 +3,23 @@
     margin-top: 5%;
     background-color: black;
 }
-.houseMenu {
-    width: 7%;
-    margin-left: 85%;
-}
 .bill {
     background-color: #FFFE9A;
-    width: 100%;
-    height: 100%;
+    width: 60%;
     margin-right: 20%;
 }
 #item {
     float: left;
+    font-size:  calc(20% + 1vw + 1vh);
+    
 }
 #total {
     float: initial;
+    font-size:  calc(20% + 1vw + 1vh);
+}
+.submit {
+    background-color: #FFFE9A;
+    float: right;
+    margin-right: -20%;
+    font-size:  calc(20% + 1vw + 1vh);
 }

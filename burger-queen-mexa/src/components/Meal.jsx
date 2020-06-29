@@ -1,58 +1,78 @@
 import React from 'react';
+import './styles/Meal.css';
 import title from '../images/title.svg';
 import MenuNavbar from '../components/MenuNavbar';
 import CounterInput from 'react-bootstrap-counter';
 import {auth, db} from './firebase';
+import {withRouter} from 'react-router-dom';
 
 
-const Meal = () => {
-
+const Meal = (props) => {
     const [mealItem, setMealItem] = React.useState([])
 
     React.useEffect(() => {
-  
       const getData = async () => {
         try {
           // const res = auth.currentUser.uid;
           // console.log(res)
-          const data = await db.collection("meal").orderBy("uid", "asc").get()
-          console.log(data)
-          const arrayData = data.docs.map(doc =>  ({ uid: doc.uid, ...doc.data() }))
-          setMealItem(arrayData)
-          console.log(arrayData)
-          
-          // if (uid === arrayData.uid ){
-          //   console.log(arrayData.uid)
-          //   return arrayData.user
-          //}
-        } catch(error) {
-          console.log(error)
+          const data = await db
+            .collection("meal")
+            .orderBy("uid", "asc")
+            .get();
+          console.log(data);
+          const arrayData = data.docs.map((doc) => ({
+            uid: doc.uid,
+            ...doc.data(),
+          }));
+          setMealItem(arrayData);
+          console.log(arrayData);
+        } catch (error) {
+          console.log(error);
         }
-      }
-      getData()
-    }, [])
-
+      };
+      getData();
+    }, []);
     return (
-        <div className="container mt-5">
-            <div className="box1">
-            <div className="text-center">
-                <img 
-                src={title} 
-                className="images"
-                ></img>
-            </div>
-              <div className="btn-group">
-                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Mesa
-                </button>
-                <div className="dropdown-menu">
-                  <a className="dropdown-item" href="#">1</a>
+      <div className="container mt-5">
+        <div className="box1">
+          <div className="text-center">
+            <img src={title} className="images"></img>
+          </div>
+          <div className="textTable">
+            No. Mesa
+            <select className="select">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </div>
+          <div className="mt-5 text-center">
+            <div className="menuTitle">Menú</div>
+            <li className="list-group">
+              {mealItem.map((item) => (
+                <div key={item.uid} className="">
+                  <div className="itemTextMeal">{item.item}</div>                
+                  <div className="priceTextMeal">$ {item.price}.00</div> 
+                  
+                  <CounterInput
+                    min={0}
+                    max={100}
+                    onChange={(value) => {
+                      console.log(value);
+                      console.log('uid',item.uid);
+                    }}
+                    value={0}
+                  />                
+                  <div className="descriptionTextMeal">{item.description}</div>  <br></br>              
                 </div>
-            </div>
-            </div>
-            <MenuNavbar/>
-          </div>    
-    )
+              ))}
+            </li>
+          </div>
+          <MenuNavbar />
+        </div>
+      </div>
+    );
 }
   
-  export default Meal  
+  export default withRouter(Meal)  

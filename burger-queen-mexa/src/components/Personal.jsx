@@ -21,7 +21,7 @@ const Personal = (props) => {
       setUser(auth.currentUser);
     } else {
       console.log("no vive");
-      props.history.push("/Login");
+      props.history.push("/");
     }
   }, []);
 
@@ -55,7 +55,7 @@ const Personal = (props) => {
           <img src={title} className="images"></img>
         </div>
         <div className="mt-5 text-center">
-          <div className="welcome">           
+          <div className="welcome">
             Bienvenida
             <p> {userName.user}</p>
           </div>

@@ -1,27 +1,27 @@
-import React from 'react';
-import './styles/MenuNavbar.css';
-import house from '../images/house.svg';
-import {withRouter} from 'react-router-dom';
+import React from "react";
+import "./styles/MenuNavbar.css";
+import house from "../images/house.svg";
+import { withRouter } from "react-router-dom";
 
 const MenuNavbar = (props) => {
+  const menu = () => {
+    props.history.push("/Menu");
+  };
+  return (
+    <div className="navbar" fixed="bottom" bg="dark" varian="dark">
+      <div className="bill" fixed="bottom">
+        <p id="item">
+          Productos: No. {} Total: ${}
+        </p>
+        <button type="submit" className="submit">
+          Enviar
+        </button>
+      </div>
+      <div className="houseMenu">
+        <img src={house} onClick={() => menu()}></img>
+      </div>
+    </div>
+  );
+};
 
-    const menu = () => {
-        props.history.push('/Menu')
-      }
-      return (
-        <div className="navbar" fixed="bottom" bg="dark" varian="dark">
-            <div className="bill" fixed="bottom">
-                <p id="item">Productos: 2</p>
-                <p id="total">Total: $125.00</p>
-            </div>
-            <img className="house"
-            src={house} 
-            className="houseMenu"
-            onClick={() => menu()}
-            ></img>
-        </div>
-      )
-
-}
-
-    export default withRouter(MenuNavbar)
+export default withRouter(MenuNavbar);
