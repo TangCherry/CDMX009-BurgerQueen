@@ -9,6 +9,9 @@ import {withRouter} from 'react-router-dom';
 const Breakfast = (props) => {
 
   const [total, setTotal] = useState(0);
+  const [productos, setProductos] = useState([])
+
+  console.log(productos)
 
   // React.useEffect(() =>{
   //   let tot;
@@ -17,6 +20,14 @@ const Breakfast = (props) => {
   //      console.log(tot)
   //    }
   // },[])
+
+  // {
+  //   productos: [
+  //     { productoId: '', precioUnitario: 0, cantidad: 0 }
+  //   ],
+  //   nroMesa: 0,
+  //   nombreMesero: ''
+  // }
 
   const [user, setUser] = useState(null)
   React.useEffect(() => {
@@ -82,8 +93,31 @@ const Breakfast = (props) => {
                   min={0}
                   max={100}
                   onChange={(total) => {                   
-                    setTotal(total);                    
-                    console.log('total',total , 'de', item.item);                    
+                    // setTotal(total);                    
+                    // console.log('total',total , 'de', item.item)
+                    
+                    let productosNew;
+                    if (productos.find((p) => p.productoId === item.uid)) {
+                      productosNew = productos.map((p) => {
+                       
+                        if (p.productoId !== item.uid) {
+                          return p
+                        }
+                        return {
+                       
+                          ...p,
+                          cant: total,
+                          
+                        }
+                        
+                      }) 
+                    } else {
+                      productosNew = [
+                        ...productos,
+                        { productoId: item.uid, precioUnitario: item.price, cant: total },
+                      ]
+                    }
+                    setProductos(productosNew)              
                   }}       
                 />      
                  </div>         
