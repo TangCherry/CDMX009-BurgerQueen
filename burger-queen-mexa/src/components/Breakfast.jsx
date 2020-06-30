@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import title from "../images/title.svg";
 import "./styles/Breakfast.css";
 import CounterInput from "react-bootstrap-counter";
@@ -8,7 +8,17 @@ import {withRouter} from 'react-router-dom';
 
 const Breakfast = (props) => {
 
-  const [user, setUser] = React.useState(null)
+  const [total, setTotal] = useState(0);
+
+  // React.useEffect(() =>{
+  //   let tot;
+  //    for(let i = 0; total.lenght; i++){
+  //      tot += total[1]
+  //      console.log(tot)
+  //    }
+  // },[])
+
+  const [user, setUser] = useState(null)
   React.useEffect(() => {
     if(auth.currentUser){
       console.log('vive')
@@ -19,7 +29,7 @@ const Breakfast = (props) => {
   }
   }, [])
 
-  const [breakfastItem, setBreakfastItem] = React.useState([]);
+  const [breakfastItem, setBreakfastItem] = useState([]);
 
   React.useEffect(() => {
     const getData = async () => {
@@ -30,7 +40,6 @@ const Breakfast = (props) => {
           .collection("breakfast")
           .orderBy("uid", "asc")
           .get();
-        console.log(data);
         const arrayData = data.docs.map((doc) => ({
           uid: doc.uid,
           ...doc.data(),
@@ -43,6 +52,8 @@ const Breakfast = (props) => {
     };
     getData();
   }, []);
+
+  
 // console.log(getD  ata)
   return (
     <div className="container mt-5">
@@ -62,7 +73,7 @@ const Breakfast = (props) => {
         <div className="mt-5 text-center">
           <div className="menuTitle">Menú</div><br></br><br></br>
           <li className="list-group">
-            {breakfastItem.map((item) => (
+          {breakfastItem.map((item) => (
               <div key={item.uid} className="">
                 <div className="itemText ">{item.item}</div>                
                 <div className="priceText  ">$ {item.price}.00</div> 
@@ -70,19 +81,18 @@ const Breakfast = (props) => {
                 <CounterInput
                   min={0}
                   max={100}
-                  onChange={(value) => {
-                    console.log(value);
-                    console.log('uid',item.uid);
-                  }}
-                  value={0}                    
+                  onChange={(total) => {                   
+                    setTotal(total);                    
+                    console.log('total',total , 'de', item.item);                    
+                  }}       
                 />      
                  </div>         
-                <div className="descriptionText"> ({item.description})</div>            
+                <div className="descriptionText"> ({item.description})</div>
               </div>
             ))}
           </li>
         </div>
-        <MenuNavbar />
+        <MenuNavbar/>
       </div>
     </div>
   );

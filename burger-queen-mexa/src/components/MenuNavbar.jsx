@@ -3,7 +3,7 @@ import "./styles/MenuNavbar.css";
 import house from "../images/house.svg";
 import { withRouter } from "react-router-dom";
 
-const MenuNavbar = (props) => {
+const MenuNavbar = (props, {setTotal}) => {
   const menu = () => {
     props.history.push("/Menu");
   };
@@ -11,7 +11,7 @@ const MenuNavbar = (props) => {
     <div className="navbar" fixed="bottom" bg="dark" varian="dark">
       <div className="bill" fixed="bottom">
         <p id="item">
-          Productos: No. {} Total: ${}
+          {/* Productos: No.{setTotal, console.log(setTotal)} Total: ${} */}
         </p>
         <button type="submit" className="submit">
           Enviar

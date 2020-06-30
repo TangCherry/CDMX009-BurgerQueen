@@ -55,7 +55,7 @@ const Menu = (props) => {
             <div className="col-12 text-center">
               <img 
               src={table} 
-              className="table float-xs-left"
+              className="guest float-xs-left"
               onClick={() => tableIcon()}
               ></img>            
             </div> 
