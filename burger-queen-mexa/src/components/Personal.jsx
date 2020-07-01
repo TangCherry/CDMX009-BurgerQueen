@@ -6,7 +6,6 @@ import chef from "../images/chef.svg";
 import logout from "../images/logout.svg";
 import { auth, db } from "./firebase";
 import { withRouter } from "react-router-dom";
-// import app from './firebase';
 
 const Personal = (props) => {
   const logOut = () => {
@@ -27,6 +26,9 @@ const Personal = (props) => {
 
   const menu = () => {
     props.history.push("/Menu");
+  };
+  const kitchen = () => {
+    props.history.push("/Kitchen");
   };
 
   const [userName, setUserName] = React.useState([]);
@@ -67,7 +69,11 @@ const Personal = (props) => {
               className="waiter float-xs-left "
               onClick={() => menu()}
             ></img>
-            <img src={chef} className="chef float-xs-right"></img>
+            <img 
+            src={chef} 
+            className="chef float-xs-right"
+            onClick={() => kitchen()}
+            ></img>
           </div>
         </div>
         <div className="row">

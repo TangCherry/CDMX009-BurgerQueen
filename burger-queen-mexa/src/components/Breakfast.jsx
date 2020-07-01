@@ -1,17 +1,16 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import title from "../images/title.svg";
 import "./styles/Breakfast.css";
 import CounterInput from "react-bootstrap-counter";
 import { auth, db } from "./firebase";
 import MenuNavbar from "../components/MenuNavbar";
-import {withRouter} from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 const Breakfast = (props) => {
+  const [total, setTotal] = useState(null );
+  const [productos, setProductos] = useState([]);
 
-  const [total, setTotal] = useState(0);
-  const [productos, setProductos] = useState([])
-
-  console.log(productos)
+  console.log(productos);
 
   // React.useEffect(() =>{
   //   let tot;
@@ -29,16 +28,38 @@ const Breakfast = (props) => {
   //   nombreMesero: ''
   // }
 
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
   React.useEffect(() => {
-    if(auth.currentUser){
-      console.log('vive')
-      setUser(auth.currentUser)
-  }else {
-    console.log('no vive')
-    props.history.push('/')
-  }
-  }, [])
+    if (auth.currentUser) {
+      console.log("vive");
+      setUser(auth.currentUser);
+    } else {
+      console.log("no vive");
+      props.history.push("/");
+    }
+  }, []);
+
+  const [table, setTable] = useState([]);
+
+  React.useEffect(() => {
+    const getData = async () => {
+      try {
+        const dataOfTable = await db
+          .collection("table")
+          .orderBy("uid", "asc")
+          .get();
+        const arrayDataTable = dataOfTable.docs.map((doc) => ({
+          uid: doc.uid,
+          ...doc.data(),
+        }));
+        setTable(arrayDataTable);
+        console.log(arrayDataTable);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, []);
 
   const [breakfastItem, setBreakfastItem] = useState([]);
 
@@ -64,8 +85,7 @@ const Breakfast = (props) => {
     getData();
   }, []);
 
-  
-// console.log(getD  ata)
+  // console.log(getD  ata)
   return (
     <div className="container mt-5">
       <div className="box1">
@@ -74,59 +94,73 @@ const Breakfast = (props) => {
         </div>
         <div className="textTable  ">
           No. Mesa
-          <select className="select">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-          </select>
+          <select className="select" onChange={(e) => {setTable()} }>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
+            <option value='5'>5</option>
+            {/* { console.log(table)} */}
+          </select> 
+
+          {/* {table.map((item) => (
+              <select key={item.uid} className="">
+                <option value={item.uid}>{item.uid}</option>
+                </select>
+                
+                ))
+          } */}
+                
+         
         </div>
         <div className="mt-5 text-center">
-          <div className="menuTitle">Menú</div><br></br><br></br>
+          <div className="menuTitle">Menú</div>
+          <br></br>
+          <br></br>
           <li className="list-group">
-          {breakfastItem.map((item) => (
+            {breakfastItem.map((item) => (
               <div key={item.uid} className="">
-                <div className="itemText ">{item.item}</div>                
-                <div className="priceText  ">$ {item.price}.00</div> 
+                <div className="itemText ">{item.item}</div>
+                <div className="priceText  ">$ {item.price}.00</div>
                 <div>
-                <CounterInput
-                  min={0}
-                  max={100}
-                  onChange={(total) => {                   
-                    // setTotal(total);                    
-                    // console.log('total',total , 'de', item.item)
-                    
-                    let productosNew;
-                    if (productos.find((p) => p.productoId === item.uid)) {
-                      productosNew = productos.map((p) => {
-                       
-                        if (p.productoId !== item.uid) {
-                          return p
-                        }
-                        return {
-                       
-                          ...p,
-                          cant: total,
-                          
-                        }
-                        
-                      }) 
-                    } else {
-                      productosNew = [
-                        ...productos,
-                        { productoId: item.uid, precioUnitario: item.price, cant: total },
-                      ]
-                    }
-                    setProductos(productosNew)              
-                  }}       
-                />      
-                 </div>         
+                  <CounterInput
+                    min={0}
+                    max={100}
+                    onChange={(total) => {
+                      // setTotal(total);
+                      // console.log('total',total , 'de', item.item)
+
+                      let productosNew;
+                      if (productos.find((p) => p.productoId === item.uid)) {
+                        productosNew = productos.map((p) => {
+                          if (p.productoId !== item.uid) {
+                            return p;
+                          }
+                          return {
+                            ...p,
+                            cant: total,
+                          };
+                        });
+                      } else {
+                        productosNew = [
+                          ...productos,
+                          {
+                            productoId: item.uid,
+                            precioUnitario: item.price,
+                            cant: total,
+                          },
+                        ];
+                      }
+                      setProductos(productosNew);
+                    }}
+                  />
+                </div>
                 <div className="descriptionText"> ({item.description})</div>
               </div>
             ))}
           </li>
         </div>
-        <MenuNavbar/>
+        <MenuNavbar />
       </div>
     </div>
   );

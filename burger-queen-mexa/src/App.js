@@ -6,6 +6,8 @@ import Menu from "./components/Menu";
 import Breakfast from "./components/Breakfast";
 import Meal from "./components/Meal";
 import Floor from "./components/Floor";
+import Kitchen from "./components/Kitchen";
+import DetailFloor from "./components/DetailFloor";
 
 import { auth } from "./components/firebase";
 
@@ -31,6 +33,9 @@ function App() {
         <Route path="/Personal">
           <Personal />
         </Route>
+        <Route path="/Kitchen">
+          <Kitchen />
+        </Route>
         <Route path="/Menu">
           <Menu />
         </Route>
@@ -42,6 +47,9 @@ function App() {
         </Route>
         <Route path="/Floor">
           <Floor />
+        </Route>
+        <Route path="/DetailFloor">
+          <DetailFloor />
         </Route>
       </Switch>
     </Router>
