@@ -17,3 +17,9 @@ body {
 #paragraph {
     font-size: 25px;
 }
+#waiterUser {
+    float: right;
+    font-size: 25px;
+    margin-top: -7%;
+    margin-right: 20%;
+}

@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import title from "../images/title.svg";
-import "./styles/DetailFloor.css";
-import rec from "../images/yellowrec.svg";
+import title from "../../assets/images/title.svg";
+import "../../assets/styles/DetailFloor.css";
+import rec from "../../assets/images/yellowrec.svg";
+import Table from 'react-bootstrap/Table';
 
 const DetailFloor = ({firebaseUser, setFirebaseUser}) => {
     const [userNameTemp, setUserNameTemp] = useState(firebaseUser);
@@ -20,11 +21,18 @@ const DetailFloor = ({firebaseUser, setFirebaseUser}) => {
             <p id="paragraph">No. Mesa 
                 <img src={rec}></img>
             </p>
-            </div>
-            <div className="waiter">
-            <p id="paragraph">Mesero:{setUserNameTemp.user}
+            <p id="waiterUser">Mesero:{setUserNameTemp.user}
             </p>
             </div>
+            <Table responsive>
+                <div className="table">
+                    <tr>
+                        <th>Mesa</th>
+                        <th>Mesa</th>
+                        <th>Mesa</th>
+                    </tr>
+                </div>
+            </Table>
             </div>
         </div>
 

@@ -1,9 +1,10 @@
 import React from "react";
-import "./styles/MenuNavbar.css";
-import house from "../images/house.svg";
+import "../../assets/styles/MenuNavbar.css";
+import house from "../../assets/images/house.svg";
 import { withRouter } from "react-router-dom";
 
-const MenuNavbar = (props, {setTotal}) => {
+const MenuNavbar = (props, {totalquantity}) => {
+
   const menu = () => {
     props.history.push("/Menu");
   };
@@ -11,7 +12,7 @@ const MenuNavbar = (props, {setTotal}) => {
     <div className="navbar" fixed="bottom" bg="dark" varian="dark">
       <div className="bill" fixed="bottom">
         <p id="item">
-          {/* Productos: No.{setTotal, console.log(setTotal)} Total: ${} */}
+          Productos: {totalquantity}  Total: ${}
         </p>
         <button type="submit" className="submit">
           Enviar

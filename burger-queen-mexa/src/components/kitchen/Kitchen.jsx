@@ -1,10 +1,10 @@
 import React from 'react';
-import title from "../images/title.svg";
-import "./styles/Kitchen.css";
-import PersonalNavbar from "../components/PersonalNavbar";
+import title from "../../assets/images/title.svg";
+import "../../assets/styles/Kitchen.css";
+import PersonalNavbar from "../personalnavbar/PersonalNavbar";
 import { withRouter } from "react-router-dom";
-import clock from "../images/clock1.svg";
-import hourglass from "../images/hourglass.svg";
+import clock from "../../assets/images/clock1.svg";
+import hourglass from "../../assets/images/hourglass.svg";
 import Table from 'react-bootstrap/Table';
 
 const Kitchen = () => {

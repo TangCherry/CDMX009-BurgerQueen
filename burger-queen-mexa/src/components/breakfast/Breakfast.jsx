@@ -1,14 +1,17 @@
-import React, { useState } from "react";
-import title from "../images/title.svg";
-import "./styles/Breakfast.css";
+import React, { useState,useEffect } from "react";
+import title from "../../assets/images/title.svg"
+import "../../assets/styles/Breakfast.css";
 import CounterInput from "react-bootstrap-counter";
-import { auth, db } from "./firebase";
-import MenuNavbar from "../components/MenuNavbar";
+import { auth, db } from "../firebase/firebase";
+import MenuNavbar from "../menunavbar/MenuNavbar.jsx";
 import { withRouter } from "react-router-dom";
+import TotalQuantity from './TotalQuantity.js';
 
 const Breakfast = (props) => {
-  const [total, setTotal] = useState(null );
+  let [totalquantity, setTotalquantity]=useState(0)
+  const [payment, setPayment] = useState(0);
   const [productos, setProductos] = useState([]);
+
 
   console.log(productos);
 
@@ -85,9 +88,13 @@ const Breakfast = (props) => {
     getData();
   }, []);
 
-  // console.log(getD  ata)
+  //  console.log(payment)
   return (
+
     <div className="container mt-5">
+      <div>
+        {/* <TotalQuantity totalquantity={totalquantity} setTotalquantity={setTotalquantity} /> */}
+      </div>
       <div className="box1">
         <div className="text-center">
           <img src={title} className="images"></img>
@@ -131,36 +138,58 @@ const Breakfast = (props) => {
                       // console.log('total',total , 'de', item.item)
 
                       let productosNew;
+                      let add;
+                      let totalPay;
                       if (productos.find((p) => p.productoId === item.uid)) {
-                        productosNew = productos.map((p) => {
+                         productosNew = productos.map((p) => {
                           if (p.productoId !== item.uid) {
+                            
+                            // setPayment(p)
                             return p;
                           }
                           return {
                             ...p,
-                            cant: total,
-                          };
+                            cant: total,                            
+                            payment: total * item.price,        
+                          }; 
                         });
                       } else {
+                        
                         productosNew = [
                           ...productos,
                           {
                             productoId: item.uid,
                             precioUnitario: item.price,
                             cant: total,
+                            payment: total * item.price,     
                           },
                         ];
+                        
                       }
                       setProductos(productosNew);
+                      add = productosNew.reduce((sum, value) => ( sum + value.cant ), 0);                                    
+                      setTotalquantity(add); {console.log(add)}
+                      totalPay = productosNew.reduce((sum, value) => ( sum + value.payment), 0);  
+                      setPayment(totalPay); {console.log(totalPay)}                         
+                      
+                      
+                    
+                      // setPayment(add)
+                     
+                      
                     }}
+                   
                   />
                 </div>
+                
+                  {/* <div>({totalquantity})</div> */}
                 <div className="descriptionText"> ({item.description})</div>
               </div>
             ))}
           </li>
+                  <p>Productos: {totalquantity}, Total a pagar ${payment}</p> 
         </div>
-        <MenuNavbar />
+        <MenuNavbar totalquantity={totalquantity} />
       </div>
     </div>
   );

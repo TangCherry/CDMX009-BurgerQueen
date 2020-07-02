@@ -1,6 +1,6 @@
 import React from "react";
-import "./styles/PersonalNavbar.css";
-import house from "../images/house.svg";
+import "../../assets/styles/PersonalNavbar.css";
+import house from "../../assets/images/house.svg";
 import { withRouter } from "react-router-dom";
 
 const PersonalNavbar = (props) => {

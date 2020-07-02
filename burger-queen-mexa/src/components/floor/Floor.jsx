@@ -1,12 +1,12 @@
 import React from "react";
-import title from "../images/title.svg";
-import "./styles/Floor.css";
+import title from "../../assets/images/title.svg";
+import "../../assets/styles/Floor.css";
 import { withRouter } from "react-router-dom";
-import { auth, db } from "./firebase";
-import PersonalNavbar from "../components/PersonalNavbar";
-import clock from "../images/clock1.svg";
-import hourglass from "../images/hourglass.svg";
-import sign from "../images/sign.svg";
+import { auth, db } from "../firebase/firebase";
+import PersonalNavbar from "../personalnavbar/PersonalNavbar";
+import clock from "../../assets/images/clock1.svg";
+import hourglass from "../../assets/images/hourglass.svg";
+import sign from "../../assets/images/sign.svg";
 import Table from 'react-bootstrap/Table';
 
 const Floor = (props) => {

@@ -1,11 +1,11 @@
 import React from "react";
-import "./styles/Login.css";
-import burger from "../images/burger.svg";
-import title from "../images/title.svg";
-import whiteRectangle from "../images/whiterectangle.svg";
-import user from "../images/user.svg";
-import padlock from "../images/padlock.svg";
-import { db, auth } from './firebase';
+import "../../assets/styles/Login.css";
+import burger from "../../assets/images/burger.svg";
+import title from "../../assets/images/title.svg";
+import whiteRectangle from "../../assets/images/whiterectangle.svg";
+import user from "../../assets/images/user.svg";
+import padlock from "../../assets/images/padlock.svg";
+import { db, auth } from '../firebase/firebase';
 import { withRouter } from 'react-router-dom';
 
 const Login = (props) => {

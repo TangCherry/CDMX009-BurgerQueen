@@ -1,10 +1,10 @@
 import React from "react";
-import "./styles/Personal.css";
-import title from "../images/title.svg";
-import waiter from "../images/waiter.svg";
-import chef from "../images/chef.svg";
-import logout from "../images/logout.svg";
-import { auth, db } from "./firebase";
+import "../../assets/styles/Personal.css";
+import title from "../../assets/images/title.svg";
+import waiter from "../../assets/images/waiter.svg";
+import chef from "../../assets/images/chef.svg";
+import logout from "../../assets/images/logout.svg";
+import { auth, db } from "../firebase/firebase";
 import { withRouter } from "react-router-dom";
 
 const Personal = (props) => {

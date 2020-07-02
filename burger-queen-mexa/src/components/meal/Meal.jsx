@@ -1,9 +1,9 @@
 import React from 'react';
-import './styles/Meal.css';
-import title from '../images/title.svg';
-import MenuNavbar from '../components/MenuNavbar';
+import '../../assets/styles/Meal.css';
+import title from '../../assets/images/title.svg';
+import MenuNavbar from '../menunavbar/MenuNavbar';
 import CounterInput from 'react-bootstrap-counter';
-import {auth, db} from './firebase';
+import {auth, db} from '../firebase/firebase';
 import {withRouter} from 'react-router-dom';
 
 

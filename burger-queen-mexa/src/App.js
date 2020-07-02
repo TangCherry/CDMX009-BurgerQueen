@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Login from "./components/Login";
-import Personal from "./components/Personal";
-import Menu from "./components/Menu";
-import Breakfast from "./components/Breakfast";
-import Meal from "./components/Meal";
-import Floor from "./components/Floor";
-import Kitchen from "./components/Kitchen";
-import DetailFloor from "./components/DetailFloor";
+import Login from "./components/login/Login";
+import Personal from "./components/personal/Personal";
+import Menu from "./components/menu/Menu";
+import Breakfast from "./components/breakfast/Breakfast";
+import Meal from "./components/meal/Meal";
+import Floor from "./components/floor/Floor";
+import Kitchen from "./components/kitchen/Kitchen";
+import DetailFloor from "./components/detailfloor/DetailFloor";
 
-import { auth } from "./components/firebase";
+import { auth } from "./components/firebase/firebase";
 
 function App() {
   const [firebaseUser, setFirebaseUser] = React.useState(false);

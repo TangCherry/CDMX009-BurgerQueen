@@ -1,12 +1,12 @@
 import React from 'react';
-import './styles/Menu.css';
-import title from '../images/title.svg';
-import breakfast from '../images/breakfast.svg';
-import meal from '../images/meal.svg';
-import table from '../images/table.svg';
-import {auth} from './firebase';
+import '../../assets/styles/Menu.css';
+import title from '../../assets/images/title.svg';
+import breakfast from '../../assets/images/breakfast.svg';
+import meal from '../../assets/images/meal.svg';
+import table from '../../assets/images/table.svg';
+import {auth} from '../firebase/firebase';
 import {withRouter} from 'react-router-dom';
-import PersonalNavbar from './PersonalNavbar';
+import PersonalNavbar from '../personalnavbar/PersonalNavbar';
 
 const Menu = (props) => {
 
