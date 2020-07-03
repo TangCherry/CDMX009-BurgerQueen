@@ -8,28 +8,12 @@ import { withRouter } from "react-router-dom";
 import TotalQuantity from './TotalQuantity.js';
 
 const Breakfast = (props) => {
-  let [totalquantity, setTotalquantity]=useState(0)
+  let [totalQuantity, setTotalQuantity]=useState(0)
   const [payment, setPayment] = useState(0);
-  const [productos, setProductos] = useState([]);
+  const [product, setProduct] = useState([]);
+  // let [order, setOrder] = useState([]);
 
-
-  console.log(productos);
-
-  // React.useEffect(() =>{
-  //   let tot;
-  //    for(let i = 0; total.lenght; i++){
-  //      tot += total[1]
-  //      console.log(tot)
-  //    }
-  // },[])
-
-  // {
-  //   productos: [
-  //     { productoId: '', precioUnitario: 0, cantidad: 0 }
-  //   ],
-  //   nroMesa: 0,
-  //   nombreMesero: ''
-  // }
+  //console.log(product);
 
   const [user, setUser] = useState(null);
   React.useEffect(() => {
@@ -41,6 +25,25 @@ const Breakfast = (props) => {
       props.history.push("/");
     }
   }, []);
+
+  React.useEffect(() => {
+  const addOrder = async (e) => {
+    try { 
+      const newOrder = {
+        item: product.item,
+        price: payment,
+        quantity: totalQuantity,
+        table: table,
+        user: user,
+        incomingHour: Date.now()
+      }
+      const order = await db.collection("order").add(addOrder)
+    } catch (error) {
+      console.log(error)
+    }
+  };
+  addOrder();
+}, []);
 
   const [table, setTable] = useState([]);
 
@@ -87,13 +90,11 @@ const Breakfast = (props) => {
     };
     getData();
   }, []);
-
   //  console.log(payment)
-  return (
 
+  return (
     <div className="container mt-5">
       <div>
-        {/* <TotalQuantity totalquantity={totalquantity} setTotalquantity={setTotalquantity} /> */}
       </div>
       <div className="box1">
         <div className="text-center">
@@ -109,16 +110,6 @@ const Breakfast = (props) => {
             <option value='5'>5</option>
             {/* { console.log(table)} */}
           </select> 
-
-          {/* {table.map((item) => (
-              <select key={item.uid} className="">
-                <option value={item.uid}>{item.uid}</option>
-                </select>
-                
-                ))
-          } */}
-                
-         
         </div>
         <div className="mt-5 text-center">
           <div className="menuTitle">Menú</div>
@@ -134,64 +125,50 @@ const Breakfast = (props) => {
                     min={0}
                     max={100}
                     onChange={(total) => {
-                      // setTotal(total);
                       // console.log('total',total , 'de', item.item)
-
-                      let productosNew;
+                      let newProduct;
                       let add;
                       let totalPay;
-                      if (productos.find((p) => p.productoId === item.uid)) {
-                         productosNew = productos.map((p) => {
-                          if (p.productoId !== item.uid) {
-                            
-                            // setPayment(p)
+                      if (product.find((p) => p.productId === item.uid)) {
+                        newProduct = product.map((p) => {
+                          if (p.productId !== item.uid) {
                             return p;
                           }
                           return {
                             ...p,
-                            cant: total,                            
+                            quant: total,                            
                             payment: total * item.price,        
                           }; 
                         });
                       } else {
-                        
-                        productosNew = [
-                          ...productos,
+                        newProduct = [
+                          ...product,
                           {
-                            productoId: item.uid,
-                            precioUnitario: item.price,
-                            cant: total,
+                            productId: item.uid,
+                            unitaryPrice: item.price,
+                            quant: total,
                             payment: total * item.price,     
                           },
                         ];
-                        
                       }
-                      setProductos(productosNew);
-                      add = productosNew.reduce((sum, value) => ( sum + value.cant ), 0);                                    
-                      setTotalquantity(add); {console.log(add)}
-                      totalPay = productosNew.reduce((sum, value) => ( sum + value.payment), 0);  
+                      setProduct(newProduct);
+                      add = newProduct.reduce((sum, value) => ( sum + value.quant ), 0);                                    
+                      setTotalQuantity(add); {console.log(add)}
+                      totalPay = newProduct.reduce((sum, value) => ( sum + value.payment), 0);  
                       setPayment(totalPay); {console.log(totalPay)}                         
-                      
-                      
-                    
-                      // setPayment(add)
-                     
-                      
                     }}
-                   
                   />
                 </div>
-                
-                  {/* <div>({totalquantity})</div> */}
                 <div className="descriptionText"> ({item.description})</div>
               </div>
             ))}
           </li>
-                  <p>Productos: {totalquantity}, Total a pagar ${payment}</p> 
+          <MenuNavbar 
+          totalQuantity=  {totalQuantity} payment = {payment}
+          />
         </div>
-        <MenuNavbar totalquantity={totalquantity} />
-      </div>
-    </div>
+       </div>
+   </div>
   );
 };
 
