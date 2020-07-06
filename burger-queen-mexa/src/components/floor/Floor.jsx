@@ -8,21 +8,13 @@ import clock from "../../assets/images/clock1.svg";
 import hourglass from "../../assets/images/hourglass.svg";
 import sign from "../../assets/images/sign.svg";
 import Table from 'react-bootstrap/Table';
+import Datauser from "../datauser/Datauser";
 
 const Floor = (props) => {
-  const [user, setUser] = React.useState(null);
-  React.useEffect(() => {
-    if (auth.currentUser) {
-      console.log("vive");
-      setUser(auth.currentUser);
-    } else {
-      console.log("no vive");
-      props.history.push("/");
-    }
-  }, []);
 
   return (
     <div className="container mt-5">
+      <Datauser/>
       <div className="box1">
         <div className="text-center">
           <img src={title} className="images"></img>

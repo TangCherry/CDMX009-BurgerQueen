@@ -7,19 +7,9 @@ import table from '../../assets/images/table.svg';
 import {auth} from '../firebase/firebase';
 import {withRouter} from 'react-router-dom';
 import PersonalNavbar from '../personalnavbar/PersonalNavbar';
+import Datauser from "../datauser/Datauser";
 
 const Menu = (props) => {
-
-    const [user, setUser] = React.useState(null)
-    React.useEffect(() => {
-      if(auth.currentUser){
-        console.log('vive')
-        setUser(auth.currentUser)
-    }else {
-      console.log('no vive')
-      props.history.push('/')
-    }
-    }, [])
 
     const breakfastIcon = () => {
             props.history.push('/Breakfast')
@@ -33,6 +23,7 @@ const Menu = (props) => {
 
     return (
     <div className="container mt-5">
+      <Datauser/>
       <div className="box1">
         <div className="text-center">
           <img src={title} className="images"></img>

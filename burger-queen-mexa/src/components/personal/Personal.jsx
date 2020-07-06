@@ -6,6 +6,8 @@ import chef from "../../assets/images/chef.svg";
 import logout from "../../assets/images/logout.svg";
 import { auth, db } from "../firebase/firebase";
 import { withRouter } from "react-router-dom";
+import Datauser from "../datauser/Datauser";
+import Username from "../username/Username";
 
 const Personal = (props) => {
   const logOut = () => {
@@ -13,16 +15,6 @@ const Personal = (props) => {
       props.history.push("/");
     });
   };
-  const [user, setUser] = React.useState(null);
-  React.useEffect(() => {
-    if (auth.currentUser) {
-      console.log("vive");
-      setUser(auth.currentUser);
-    } else {
-      console.log("no vive");
-      props.history.push("/");
-    }
-  }, []);
 
   const menu = () => {
     props.history.push("/Menu");
@@ -31,35 +23,38 @@ const Personal = (props) => {
     props.history.push("/Kitchen");
   };
 
-  const [userName, setUserName] = React.useState([]);
+  // const [userName, setUserName] = React.useState([]);
 
-  React.useEffect(() => {
-    const getData = async () => {
-      try {
-        const uid = auth.currentUser.uid;
-        // console.log(uid)
-        const data = await db.collection("user").doc(uid).get();
-        console.log(data);
-        const arrayData = { user: data.user, ...data.data() };
-        setUserName(arrayData);
-        console.log(arrayData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getData();
-  }, []);
+  // React.useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const uid = auth.currentUser.uid;
+  //       // console.log(uid)
+  //       const data = await db.collection("user").doc(uid).get();
+  //       console.log(data);
+  //       const arrayData = { user: data.user, ...data.data() };
+  //       setUserName(arrayData);
+  //       console.log(arrayData);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   getData();
+  // }, []);
 
   return (
     <div className="container mt-5">
       <div className="box1">
+        <Datauser/>
         <div className="text-center">
           <img src={title} className="images"></img>
         </div>
         <div className="mt-5 text-center">
           <div className="welcome">
             Bienvenida
-            <p> {userName.user}</p>
+            <Username
+            username={Username}
+            />
           </div>
         </div>
         <div className="row ">

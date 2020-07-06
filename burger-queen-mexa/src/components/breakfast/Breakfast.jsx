@@ -6,44 +6,48 @@ import { auth, db } from "../firebase/firebase";
 import MenuNavbar from "../menunavbar/MenuNavbar.jsx";
 import { withRouter } from "react-router-dom";
 import TotalQuantity from './TotalQuantity.js';
+import Datauser from "../datauser/Datauser";
+import Username from "../username/Username";
 
-const Breakfast = (props) => {
+const Breakfast = (props, {userName}) => {
+
   let [totalQuantity, setTotalQuantity]=useState(0)
   const [payment, setPayment] = useState(0);
   const [product, setProduct] = useState([]);
-  // let [order, setOrder] = useState([]);
+   let [order, setOrder] = useState([]);
 
-  //console.log(product);
+  console.log(product);
 
-  const [user, setUser] = useState(null);
-  React.useEffect(() => {
-    if (auth.currentUser) {
-      console.log("vive");
-      setUser(auth.currentUser);
-    } else {
-      console.log("no vive");
-      props.history.push("/");
-    }
-  }, []);
+  // const addOrder = async (e) => {
+    //  e.preventDefault()
+    //  if (!order.trim())
 
-  React.useEffect(() => {
-  const addOrder = async (e) => {
-    try { 
-      const newOrder = {
-        item: product.item,
-        price: payment,
-        quantity: totalQuantity,
-        table: table,
-        user: user,
-        incomingHour: Date.now()
-      }
-      const order = await db.collection("order").add(addOrder)
-    } catch (error) {
-      console.log(error)
-    }
-  };
-  addOrder();
-}, []);
+    // try { 
+      // const newOrder = {
+      //   item: product.item,
+      //   price: payment,
+      //   quantity: totalQuantity,
+      //   table: table,
+      //   user: user,
+      //   incomingHour: Date.now()
+
+      // };
+      // console.log(newOrder);
+      // const order = await db.collection("order").add(newOrder)
+
+        //  setProduct([
+        //    ...product,
+        //    {...newOrder}
+        //  ])
+
+
+    // } catch (error) {
+    //   console.log(error)
+    // }
+    
+  // };
+  
+
 
   const [table, setTable] = useState([]);
 
@@ -66,6 +70,7 @@ const Breakfast = (props) => {
     };
     getData();
   }, []);
+  // console.log('mesa', table)
 
   const [breakfastItem, setBreakfastItem] = useState([]);
 
@@ -92,8 +97,26 @@ const Breakfast = (props) => {
   }, []);
   //  console.log(payment)
 
+  const newOrder = {
+    item: product,
+    check: payment,
+    totQuantity: totalQuantity,
+    table: table,
+    userName: userName,
+    incomingHour: Date.now(),
+  };
+
+  // const order = await db.collection("order").add(newOrder)
+  
+  console.log(newOrder);
+
   return (
     <div className="container mt-5">
+      <Datauser
+      />
+      <Username
+            username={Username}
+            />
       <div>
       </div>
       <div className="box1">
@@ -102,7 +125,8 @@ const Breakfast = (props) => {
         </div>
         <div className="textTable  ">
           No. Mesa
-          <select className="select" onChange={(e) => {setTable()} }>
+          <select className="select" onChange={e => setTable(e.target.value) }>
+            <option value='0'>0</option>
             <option value='1'>1</option>
             <option value='2'>2</option>
             <option value='3'>3</option>
@@ -168,6 +192,7 @@ const Breakfast = (props) => {
           />
         </div>
        </div>
+       
    </div>
   );
 };

@@ -6,10 +6,12 @@ import { withRouter } from "react-router-dom";
 import clock from "../../assets/images/clock1.svg";
 import hourglass from "../../assets/images/hourglass.svg";
 import Table from 'react-bootstrap/Table';
+import Datauser from "../datauser/Datauser";
 
-const Kitchen = () => {
+const Kitchen = (props) => {
     return (
         <div className="container mt-5">
+        <Datauser/>
         <div className="box1">
           <div className="text-center">
             <img src={title} className="images"></img>
@@ -44,4 +46,4 @@ const Kitchen = () => {
     )
 }
 
-export default Kitchen
+export default withRouter(Kitchen);

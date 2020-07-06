@@ -13,6 +13,7 @@ import { auth } from "./components/firebase/firebase";
 
 function App() {
   const [firebaseUser, setFirebaseUser] = React.useState(false);
+  
 
   React.useEffect(() => {
     auth.onAuthStateChanged((user) => {

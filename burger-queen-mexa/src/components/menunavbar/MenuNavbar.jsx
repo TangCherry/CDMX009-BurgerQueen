@@ -2,8 +2,9 @@ import React from "react";
 import "../../assets/styles/MenuNavbar.css";
 import house from "../../assets/images/house.svg";
 import { withRouter } from "react-router-dom";
+import addOrder from "../breakfast/Breakfast"
 
-const MenuNavbar = (props) => {
+const MenuNavbar = (props,{setProduct}) => {
 
   const menu = () => {
     props.history.push("/Menu");
@@ -17,8 +18,8 @@ const MenuNavbar = (props) => {
         <button 
         type="submit" 
         className="submit"
-        onChange={e => props.setOrdert(e.target.value)}
-        value={props.product}
+        // onChange={() => addOrder(), console.log("holi?")}
+        //value={props.product}
         >
           Enviar
         </button>

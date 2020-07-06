@@ -1,7 +1,6 @@
 body {
     background-color : #F49A1A;
   }
-  
 .box1{
     background-color : white;
     width: 91vw;
@@ -19,7 +18,14 @@ body {
 }
 #waiterUser {
     float: right;
-    font-size: 25px;
+    font-size: 28px;
     margin-top: -7%;
     margin-right: 20%;
+}
+#edit {
+    color: #4674B9;
+    font-size: 30px;
+}
+Table {
+    width: 100%;
 }
