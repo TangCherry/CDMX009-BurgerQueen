@@ -8,23 +8,12 @@ import Meal from "./components/meal/Meal";
 import Floor from "./components/floor/Floor";
 import Kitchen from "./components/kitchen/Kitchen";
 import DetailFloor from "./components/detailfloor/DetailFloor";
-
-import { auth } from "./components/firebase/firebase";
+import useAuth from  './hooks/useAuth';
+import { auth, db} from "./components/firebase/firebase";
 
 function App() {
-  const [firebaseUser, setFirebaseUser] = React.useState(false);
-  
+  const { firebaseUser, user} = useAuth();
 
-  React.useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      console.log(user);
-      if (user) {
-        setFirebaseUser(user);
-      } else {
-        setFirebaseUser(null);
-      }
-    });
-  }, []);
   return firebaseUser !== false ? (
     <Router>
       <Switch>
@@ -41,7 +30,9 @@ function App() {
           <Menu />
         </Route>
         <Route path="/Breakfast">
-          <Breakfast />
+          <Breakfast 
+          user = {user}
+          />
         </Route>
         <Route path="/Meal">
           <Meal />

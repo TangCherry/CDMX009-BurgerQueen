@@ -2,9 +2,16 @@ import React from "react";
 import "../../assets/styles/MenuNavbar.css";
 import house from "../../assets/images/house.svg";
 import { withRouter } from "react-router-dom";
-import addOrder from "../breakfast/Breakfast"
+import {agregar} from "../breakfast/Breakfast"
+import { auth, db } from "../firebase/firebase";
+const MenuNavbar = (props,{order, setOrder, agregar}) => {
+  // console.log('otro',newOrder)
 
-const MenuNavbar = (props,{setProduct}) => {
+  let handleAdd=()=>{
+    // const conection = db.collection("order").add(newOrder)
+    // console.log('funciono',conection)
+}
+
 
   const menu = () => {
     props.history.push("/Menu");
@@ -15,14 +22,11 @@ const MenuNavbar = (props,{setProduct}) => {
       <p id="item">
           Productos: {props.totalQuantity}  Total: ${props.payment}
         </p>
-        <button 
-        type="submit" 
-        className="submit"
-        // onChange={() => addOrder(), console.log("holi?")}
-        //value={props.product}
-        >
-          Enviar
-        </button>
+        
+        <button   
+            className="submit"
+                    onClick={props.addOrder}
+                  >Enviar</button>
       </div>
       <div className="houseMenu">
         <img src={house} onClick={() => menu()}></img>
