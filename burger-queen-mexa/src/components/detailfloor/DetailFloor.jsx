@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import title from "../../assets/images/title.svg";
 import "../../assets/styles/DetailFloor.css";
 import rec from "../../assets/images/yellowrec.svg";
+import bill from "../../assets/images/bill.svg";
 import Table from 'react-bootstrap/Table';
 import Datauser from "../datauser/Datauser";
 import { withRouter } from "react-router-dom";
@@ -27,8 +28,8 @@ const DetailFloor = (props) => {
             <p id="waiterUser">Mesero:
             </p>
             </div>
-            <Table responsive>
-                <div className="table">
+            <Table>
+                <div className="">
                     <tr>
                         <th>Producto</th>
                         <th>Cantidad</th>
@@ -39,17 +40,26 @@ const DetailFloor = (props) => {
                             <td>Chilakillers</td>
                             <td>1</td>
                             <td>$95.00</td>
-                            <Table>
-                                <tbody>
-                                    <tr>
-
-                                    </tr>
-                                </tbody>
-                            </Table>
                         </tr>
                     </tbody>
                 </div>
             </Table>
+            <Table>
+            <div className="">
+                    <tr>
+                        <th id="edit">Editar</th>
+                        <th>Total: $</th>
+                    </tr>
+                    <tbody>
+                        <tr>
+                            <td> </td>
+                        </tr>
+                    </tbody>
+                </div>
+            </Table>
+            <div className="bill">
+                <img src={bill}></img>
+            </div>
             </div>
         </div>
 

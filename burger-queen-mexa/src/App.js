@@ -13,6 +13,7 @@ import { auth, db} from "./components/firebase/firebase";
 
 function App() {
   const { firebaseUser, user} = useAuth();
+  
 
   return firebaseUser !== false ? (
     <Router>
@@ -21,7 +22,9 @@ function App() {
           <Login />
         </Route>
         <Route path="/Personal">
-          <Personal />
+          <Personal 
+          user = {user}
+          />
         </Route>
         <Route path="/Kitchen">
           <Kitchen />
@@ -35,7 +38,9 @@ function App() {
           />
         </Route>
         <Route path="/Meal">
-          <Meal />
+          <Meal
+          user = {user} 
+          />
         </Route>
         <Route path="/Floor">
           <Floor />

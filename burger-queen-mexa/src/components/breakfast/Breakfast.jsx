@@ -5,9 +5,9 @@ import CounterInput from "react-bootstrap-counter";
 import { auth, db } from "../firebase/firebase";
 import MenuNavbar from "../menunavbar/MenuNavbar.jsx";
 import { withRouter } from "react-router-dom";
-import TotalQuantity from "./TotalQuantity.js";
+// import TotalQuantity from "./TotalQuantity.js";
 import Datauser from "../datauser/Datauser";
-import Username from "../username/Username";
+import shortid from "shortid";
 
 const Breakfast = (props) => {
   let [totalQuantity, setTotalQuantity] = useState(0);
@@ -64,28 +64,31 @@ const Breakfast = (props) => {
   }, []);
   //  console.log(payment)
 
-  const addOrder = async () => {
+  const addOrder = () => {
     console.log("Guardados en Firebase");
     // const uid = auth.currentUser.uid;
     // // console.log(uid)
     // const userSnap = await db.collection("user").doc(uid).get();
     const newOrder = {
+      id: shortid.generate(),
       item: product,
       check: payment,
       totQuantity: totalQuantity,
       table: table,
       userName: props.user.user,
-      incomingHour: Date.now(),
+      incomingHour: new Date().toLocaleString(),
+      // incomingHour: Date.now(),
+      status: 'Abierta',
     };
     const conection = db.collection("order").add(newOrder);
   };
-
+  const floor = () => {
+    //     {props.addOrder}
+    props.history.push("/Floor");
+  };
   return (
     <div className="container mt-5">
       <Datauser />
-      <Username 
-        username={Username} 
-      />
       <div></div>
       <div className="box1">
         <div className="text-center">
@@ -93,15 +96,6 @@ const Breakfast = (props) => {
         </div>
         <div className="textTable  ">
           No. Mesa
-          {/* <div>
-            
-            {table.map((item) => (
-              <select key={item.uid} className="">
-                <option className="itemText ">{item.uid}</option>
-              </select>
-            ))}
-            
-          </div> */}
           <select className="select" onChange={(e) => setTable(e.target.value)}>
             <option value="0">0</option>
             <option value="1">1</option>
@@ -155,14 +149,16 @@ const Breakfast = (props) => {
                       }
                       setProduct(newProduct);
                       add = newProduct.reduce(
-                        (sum, value) => sum + value.quant,0
+                        (sum, value) => sum + value.quant,
+                        0
                       );
                       setTotalQuantity(add);
                       {
                         console.log(add);
                       }
                       totalPay = newProduct.reduce(
-                        (sum, value) => sum + value.payment,0
+                        (sum, value) => sum + value.payment,
+                        0
                       );
                       setPayment(totalPay);
                       {
@@ -180,6 +176,7 @@ const Breakfast = (props) => {
             payment={payment}
             order={order}
             addOrder={addOrder}
+            floor={floor}
           />
         </div>
       </div>

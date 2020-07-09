@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect}from "react";
 import title from "../../assets/images/title.svg";
 import "../../assets/styles/Floor.css";
 import { withRouter } from "react-router-dom";
@@ -12,6 +12,32 @@ import Datauser from "../datauser/Datauser";
 
 const Floor = (props) => {
 
+  let [order, setOrder] = useState([]);
+  React.useEffect(() => {
+    let hour;
+    const getData = async () => {
+      try {
+        // const res = auth.currentUser.uid;
+        // console.log(res)
+        const data = await db
+          .collection("order")
+          .orderBy("id", "asc")
+          .get();
+        const arrayData = data.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        // hour.
+        setOrder(arrayData);
+        console.log(arrayData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, []);
+  //  console.log(payment)
+
   return (
     <div className="container mt-5">
       <Datauser/>
@@ -24,8 +50,8 @@ const Floor = (props) => {
           <br></br>
           <br></br>
         </div>
-        <Table responsive>
-          <div className="table">
+        <Table>
+          <div className="">
           <tr>
             <th>Mesa</th>
             <th> <img src={clock}/></th>
@@ -36,12 +62,15 @@ const Floor = (props) => {
           </tr>
           <tbody>
             <tr>
-              <td>Mesa 2</td>
-              <td>11:45</td>
-              <td>00:10</td>
-              <td>Abierta</td>
-              <td>Lista</td>
-              <td>Ver</td>
+              {console.log('order',order)}
+            {order.map((item) => (
+              <td key={item.id} className="">
+                <td>{item.table}</td>
+                <td></td>
+                {/* <td >{item.incomingHour}</td> */}
+                {/* <td>{item.check}</td> */}
+              </td>
+            ))}
             </tr>
             </tbody>
           </div>

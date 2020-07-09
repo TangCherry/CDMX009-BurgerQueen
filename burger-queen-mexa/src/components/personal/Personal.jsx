@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useAuth } from "react";
 import "../../assets/styles/Personal.css";
 import title from "../../assets/images/title.svg";
 import waiter from "../../assets/images/waiter.svg";
@@ -7,15 +7,19 @@ import logout from "../../assets/images/logout.svg";
 import { auth, db } from "../firebase/firebase";
 import { withRouter } from "react-router-dom";
 import Datauser from "../datauser/Datauser";
-import Username from "../username/Username";
+// import Username from "../usern/Username";
 
 const Personal = (props) => {
+
+
+  
   const logOut = () => {
     auth.signOut().then(() => {
       props.history.push("/");
     });
   };
-
+    
+  // console.log('danaee apesta', props.userAuth)
   const menu = () => {
     props.history.push("/Menu");
   };
@@ -42,6 +46,11 @@ const Personal = (props) => {
   //   getData();
   // }, []);
 
+
+    // console.log('yo',props.user);
+    // console.log('yo',props.user.user);
+  
+  
   return (
     <div className="container mt-5">
       <div className="box1">
@@ -52,9 +61,7 @@ const Personal = (props) => {
         <div className="mt-5 text-center">
           <div className="welcome">
             Bienvenida
-            <Username
-            username={Username}
-            />
+            
           </div>
         </div>
         <div className="row ">
