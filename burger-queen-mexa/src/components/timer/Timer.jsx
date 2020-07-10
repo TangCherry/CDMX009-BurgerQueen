@@ -5,7 +5,7 @@ const Timer = (props) => {
     const [seconds, setSeconds] = useState(0);
     const [isActive, setIsActive] = useState(false);
 
-    console.log('segunditos',seconds);
+    // console.log('segunditos',seconds);
     function toggle() {
         setIsActive(!isActive);
     }

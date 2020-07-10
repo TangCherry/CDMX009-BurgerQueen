@@ -17,7 +17,7 @@ const Meal = (props) => {
     const [table, setTable] = useState([]);
 
 
-    React.useEffect(() => {
+    useEffect(() => {
       const getData = async () => {
         try {
           // const res = auth.currentUser.uid;
@@ -26,13 +26,13 @@ const Meal = (props) => {
             .collection("meal")
             .orderBy("uid", "asc")
             .get();
-          console.log(data);
+          // console.log(data);
           const arrayData = data.docs.map((doc) => ({
             uid: doc.uid,
             ...doc.data(),
           }));
           setMealItem(arrayData);
-          console.log(arrayData);
+          // console.log(arrayData);
         } catch (error) {
           console.log(error);
         }
@@ -41,7 +41,7 @@ const Meal = (props) => {
     }, []);
 
     const addOrder =  () => {
-      console.log("Guardados en Firebase");
+      // console.log("Guardados en Firebase");
       // const uid = auth.currentUser.uid;
       // // console.log(uid)
       // const userSnap = await db.collection("user").doc(uid).get();
@@ -122,9 +122,11 @@ const Meal = (props) => {
                     }
                     setProduct(newProduct);
                     add = newProduct.reduce((sum, value) => ( sum + value.quant ), 0);                                    
-                    setTotalQuantity(add); {console.log(add)}
+                    setTotalQuantity(add); 
+                    // {console.log(add)}
                     totalPay = newProduct.reduce((sum, value) => ( sum + value.payment), 0);  
-                    setPayment(totalPay); {console.log(totalPay)}                         
+                    setPayment(totalPay);
+                    //  {console.log(totalPay)}                         
                   }}
                   />                
                   <div className="descriptionTextMeal">{item.description}</div>  <br></br>              

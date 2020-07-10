@@ -7,13 +7,12 @@ import clock from "../../assets/images/clock1.svg";
 import hourglass from "../../assets/images/hourglass.svg";
 import Table from 'react-bootstrap/Table';
 import Datauser from "../datauser/Datauser";
-import { auth, db } from "../firebase/firebase";
+import { db } from "../firebase/firebase";
 import sign from "../../assets/images/sign.svg";
 
 const Kitchen = (props) => {
     let [order, setOrder] = useState([]);
-    React.useEffect(() => {
-      let hour;
+    useEffect(() => {
       const getData = async () => {
         try {
           // const res = auth.currentUser.uid;
@@ -28,9 +27,9 @@ const Kitchen = (props) => {
           }));
           // hour.
           setOrder(arrayData);
-          console.log(arrayData);
+          // console.log(arrayData);
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
       };
       getData();
@@ -42,7 +41,7 @@ const Kitchen = (props) => {
         <Datauser/>
         <div className="box1">
           <div className="text-center">
-            <img src={title} className="images"></img>
+            <img alt="" src={title} className="images"></img>
           </div>
           <div className="mt-5 text-center">
             <div className="menuTitle">Piso</div>
@@ -51,17 +50,18 @@ const Kitchen = (props) => {
           </div>
           
           <Table>
-            <div className="">
+            <thead>
             <tr>
               <th>Mesa</th>
-              <th> <img src={clock}/></th>
-              <th><img src={hourglass}/></th>
-              <th><img src={sign}/></th>
+              <th> <img alt="" src={clock}/></th>
+              <th><img alt="" src={hourglass}/></th>
+              <th><img alt="" src={sign}/></th>
               <th>Ver</th>
             </tr>
+            </thead>
             <tbody>
            
-                {console.log('order',order)}
+                {/* {console.log('order',order)} */}
               {order.map((item) => (
                 <tr key={item.id} className="">
                   <td className="text-center">{item.table}</td>
@@ -75,7 +75,7 @@ const Kitchen = (props) => {
               ))}
              
               </tbody>
-            </div>
+           
           </Table>       
   
           <PersonalNavbar/>

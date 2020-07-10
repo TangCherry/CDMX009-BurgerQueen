@@ -10,9 +10,9 @@ const PersonalNavbar = (props) => {
   return (
     <div className="navbarMenu" fixed="bottom">
       <img
+        alt=""
         className="house"
-        src={house}
-        className="house"
+        src={house}        
         onClick={() => personal()}
       ></img>
     </div>

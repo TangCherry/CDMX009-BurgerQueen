@@ -11,11 +11,13 @@ const PersonalNavbar = (props) => {
   return (
     <div className="navbarMenu" fixed="bottom">
       <img
+        alt=""
         className="inline"
         src={house}
         onClick={() => personal()}
       ></img>
       <img 
+      alt=""
       className="inline"
       src={back}
       ></img>

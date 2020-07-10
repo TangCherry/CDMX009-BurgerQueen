@@ -13,7 +13,7 @@ const useAuth = () => {
         .then(snap => {
           const user = snap.data()
           setUser(user)
-          console.log('elusuario',user)
+          // console.log('elusuario',user)
         })
       } else {
         setFirebaseUser(null);

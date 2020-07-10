@@ -9,7 +9,7 @@ import Floor from "./components/floor/Floor";
 import Kitchen from "./components/kitchen/Kitchen";
 import DetailFloor from "./components/detailfloor/DetailFloor";
 import useAuth from  './hooks/useAuth';
-import { auth, db} from "./components/firebase/firebase";
+// import { auth, db} from "./components/firebase/firebase";
 
 function App() {
   const { firebaseUser, user} = useAuth();

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import title from "../../assets/images/title.svg";
 import "../../assets/styles/Breakfast.css";
 import CounterInput from "react-bootstrap-counter";
-import { auth, db } from "../firebase/firebase";
+import { db } from "../firebase/firebase";
 import MenuNavbar from "../menunavbar/MenuNavbar.jsx";
 import { withRouter } from "react-router-dom";
 // import TotalQuantity from "./TotalQuantity.js";
@@ -13,35 +13,14 @@ const Breakfast = (props) => {
   let [totalQuantity, setTotalQuantity] = useState(0);
   const [payment, setPayment] = useState(0);
   const [product, setProduct] = useState([]);
-  let [order, setOrder] = useState([]);
+  let [order] = useState([]);
   const [table, setTable] = useState([]);
 
-  console.log(product, props.user);
-
-  // React.useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const dataOfTable = await db
-  //         .collection("table")
-  //         .orderBy("uid", "asc")
-  //         .get();
-  //       const arrayDataTable = dataOfTable.docs.map((doc) => ({
-  //         uid: doc.uid,
-  //         ...doc.data(),
-  //       }));
-  //       setTable(arrayDataTable);
-  //       console.log(arrayDataTable);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   getData();
-  // }, []);
-  // console.log('mesa', table)
+  // console.log(product, props.user);
 
   const [breakfastItem, setBreakfastItem] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const getData = async () => {
       try {
         // const res = auth.currentUser.uid;
@@ -55,9 +34,9 @@ const Breakfast = (props) => {
           ...doc.data(),
         }));
         setBreakfastItem(arrayData);
-        console.log(arrayData);
+        // console.log(arrayData);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     getData();
@@ -65,7 +44,7 @@ const Breakfast = (props) => {
   //  console.log(payment)
 
   const addOrder = () => {
-    console.log("Guardados en Firebase");
+    // console.log("Guardados en Firebase");
     // const uid = auth.currentUser.uid;
     // // console.log(uid)
     // const userSnap = await db.collection("user").doc(uid).get();
@@ -154,7 +133,7 @@ const Breakfast = (props) => {
                       );
                       setTotalQuantity(add);
                       {
-                        console.log(add);
+                        // console.log(add);
                       }
                       totalPay = newProduct.reduce(
                         (sum, value) => sum + value.payment,
@@ -162,7 +141,7 @@ const Breakfast = (props) => {
                       );
                       setPayment(totalPay);
                       {
-                        console.log(totalPay);
+                        // console.log(totalPay);
                       }
                     }}
                   />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect } from "react";
 import title from "../../assets/images/title.svg";
 import "../../assets/styles/Floor.css";
 import { withRouter } from "react-router-dom";
@@ -15,7 +15,7 @@ import DetailFloor from "../detailfloor/DetailFloor";
 const Floor = (props) => {
   // let [order, setOrder] = useState([]);
   // let [idOrder, setIdOrder] = useState([]);
-  React.useEffect(() => {
+  useEffect(() => {
     let hour;
     const getData = async () => {
       try {
@@ -23,18 +23,18 @@ const Floor = (props) => {
         // console.log(res)
         const data = await db
           .collection("order")
-          .orderBy("incomingHour", "asc")
+          .orderBy("incomingHour", "desc")
           .get();
-          console.log('lanuevañonga',data);
+          // console.log('lanuevañonga',data);
         const arrayData = data.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
         // hour.
         props.setOrder(arrayData);
-        console.log(arrayData);
+        // console.log(arrayData);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     getData();
@@ -44,7 +44,7 @@ const Floor = (props) => {
     //     {props.addOrder}
     props.history.push("/DetailFloor");
     props.setIdOrder(item)
-    console.log('hi',item)
+    // console.log('hi',item)
   };
   
   return (
@@ -52,7 +52,7 @@ const Floor = (props) => {
       <Datauser />
       <div className="box1">
         <div className="text-center">
-          <img src={title} className="images"></img>
+          <img alt="" src={title} className="images"></img>
         </div>
         <div className="mt-5 text-center">
           <div className="menuTitle">Piso</div>
@@ -61,22 +61,22 @@ const Floor = (props) => {
         </div>
 
         <Table>
-          
-          <div className="">
+        <thead>
+         
             <tr>
               <th>Mesa</th>
               <th>
-                {" "}
-                <img src={clock} />
+                <img alt="" src={clock} />
               </th>
               <th>
-                <img src={hourglass} />
+                <img alt="" src={hourglass} />
               </th>
               <th>
-                <img src={sign} />
+                <img alt="" src={sign} />
               </th>
               <th>Ver</th>
             </tr>
+            </thead>
             <tbody>
               {/* {console.log("order", order)} */}
               {props.order.map((item) => (
@@ -95,7 +95,7 @@ const Floor = (props) => {
                 </tr>
               ))}
             </tbody>
-          </div>
+           
         </Table>
 
         <PersonalNavbar />

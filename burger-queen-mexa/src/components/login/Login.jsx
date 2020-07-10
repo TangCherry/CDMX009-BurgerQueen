@@ -31,7 +31,7 @@ const Login = (props) => {
       return;
     }
     setError(null)
-    console.log("Pasando todas las validaciones");
+    // console.log("Pasando todas las validaciones");
   };
   //Aquí va la pinche perra función pa iniciar sesión
   const login = React.useCallback(async () => {
@@ -40,10 +40,10 @@ const Login = (props) => {
       setEmail('')
       setPass('')
       setError(null)
-      console.log(res.user)
+      // console.log(res.user)
       props.history.push('/Personal')
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       if (error.code === 'auth/invalid-email') {
         setError('Email no registrado')
       }

@@ -1,15 +1,15 @@
 import React from 'react';
-import { auth, db } from "../firebase/firebase";
+import { auth } from "../firebase/firebase";
 import { withRouter } from "react-router-dom";
 
 function DataUser (props) {
 const [user, setUser] = React.useState(null);
 React.useEffect(() => {
   if (auth.currentUser) {
-    console.log("vive");
+    // console.log("vive");
     setUser(auth.currentUser);
   } else {
-    console.log("no vive");
+    // console.log("no vive");
     props.history.push("/");
   }
 }, []);
