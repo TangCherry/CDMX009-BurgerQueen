@@ -5,13 +5,14 @@ const Timer = (props) => {
     const [seconds, setSeconds] = useState(0);
     const [isActive, setIsActive] = useState(false);
 
+    console.log('segunditos',seconds);
     function toggle() {
         setIsActive(!isActive);
     }
     useEffect(() => { 
         let interval = null;
         if(isActive) {
-            invertal = setInterval(() => { 
+            interval = setInterval(() => { 
                 setSeconds(seconds => seconds +1);
             }, 1000);
         } else if (!isActive && seconds !== 0) {
@@ -21,9 +22,8 @@ const Timer = (props) => {
     }, [isActive, seconds]);
 
     return (
-        <div>
-            
-        </div>
+        seconds,
+        isActive
     )
 }
 

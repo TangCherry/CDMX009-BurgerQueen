@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect}from "react";
 import title from "../../assets/images/title.svg";
 import "../../assets/styles/Kitchen.css";
 import PersonalNavbar from "../personalnavbar/PersonalNavbar";
@@ -7,43 +7,82 @@ import clock from "../../assets/images/clock1.svg";
 import hourglass from "../../assets/images/hourglass.svg";
 import Table from 'react-bootstrap/Table';
 import Datauser from "../datauser/Datauser";
+import { auth, db } from "../firebase/firebase";
+import sign from "../../assets/images/sign.svg";
 
 const Kitchen = (props) => {
+    let [order, setOrder] = useState([]);
+    React.useEffect(() => {
+      let hour;
+      const getData = async () => {
+        try {
+          // const res = auth.currentUser.uid;
+          // console.log(res)
+          const data = await db
+          .collection("order")
+          .orderBy("incomingHour", "desc")
+            .get();
+          const arrayData = data.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          // hour.
+          setOrder(arrayData);
+          console.log(arrayData);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getData();
+    }, []);
+    //  console.log(payment)
+  
     return (
-        <div className="container mt-5">
+      <div className="container mt-5">
         <Datauser/>
         <div className="box1">
           <div className="text-center">
             <img src={title} className="images"></img>
           </div>
           <div className="mt-5 text-center">
-            <div className="menuTitle">Cocina</div>
-                <br></br>
-                <br></br>
+            <div className="menuTitle">Piso</div>
+            <br></br>
+            <br></br>
+          </div>
+          
+          <Table>
+            <div className="">
+            <tr>
+              <th>Mesa</th>
+              <th> <img src={clock}/></th>
+              <th><img src={hourglass}/></th>
+              <th><img src={sign}/></th>
+              <th>Ver</th>
+            </tr>
+            <tbody>
+           
+                {console.log('order',order)}
+              {order.map((item) => (
+                <tr key={item.id} className="">
+                  <td className="text-center">{item.table}</td>
+                  <td>{item.incomingHour.split(' ').pop()}</td>
+                  <td>{item.userName}</td>
+                  <td className="openStatus">{item.status}</td>
+                  {/* <th {...item.status === 'Abierto' ? satus :  }></th> */}
+                
+                  <td className="detailKitchen">Ver</td>
+                </tr>
+              ))}
+             
+              </tbody>
             </div>
-            <Table responsive>
-                <div className="table">
-                    <tr>
-                        <th>Mesa</th>
-                        <th> <img src={clock}/></th>
-                        <th><img src={hourglass}/></th>
-                        <th>Status</th>
-                        <th>Ver</th>
-                    </tr>
-                <tbody>
-                    <tr>
-                        <td>Mesa 2</td>
-                        <td>11:45</td>
-                        <td>00:10</td>
-                        <td>Ver</td>
-                    </tr>   
-                </tbody>
-                </div>
-            </Table>
-            <PersonalNavbar/>
+          </Table>       
+  
+          <PersonalNavbar/>
         </div>
-        </div>
-    )
-}
+      </div>
+    );
+  };
+  
 
 export default withRouter(Kitchen);

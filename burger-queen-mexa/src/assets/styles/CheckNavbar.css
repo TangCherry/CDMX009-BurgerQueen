@@ -1,0 +1,15 @@
+/* .house {
+    width: 7%;
+    display: block;
+    margin: auto;
+} */
+.navbarMenu {
+    width: 100%;
+    background-color: black;
+}
+/* .back {
+    width: 6%;
+} */
+.inline {
+    display: inline-block;
+}

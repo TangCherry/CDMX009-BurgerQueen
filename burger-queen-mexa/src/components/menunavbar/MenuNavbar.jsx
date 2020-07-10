@@ -4,6 +4,8 @@ import house from "../../assets/images/house.svg";
 import { withRouter } from "react-router-dom";
 import {agregar} from "../breakfast/Breakfast"
 import { auth, db } from "../firebase/firebase";
+import Timer from '../timer/Timer.jsx';
+
 const MenuNavbar = (props) => {
   // console.log('otro',newOrder)
 
@@ -43,3 +45,4 @@ const MenuNavbar = (props) => {
 };
 
 export default withRouter(MenuNavbar);
+

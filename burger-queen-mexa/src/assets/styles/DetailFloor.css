@@ -29,3 +29,7 @@ body {
 Table {
     width: 100%;
 }
+.check {
+    float: right;
+    margin-right: 5%;
+}

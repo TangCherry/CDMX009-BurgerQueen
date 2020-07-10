@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/login/Login";
 import Personal from "./components/personal/Personal";
@@ -13,7 +13,8 @@ import { auth, db} from "./components/firebase/firebase";
 
 function App() {
   const { firebaseUser, user} = useAuth();
-  
+  let [order, setOrder] = useState([]);
+  let [idOrder, setIdOrder] = useState([]);
 
   return firebaseUser !== false ? (
     <Router>
@@ -43,10 +44,21 @@ function App() {
           />
         </Route>
         <Route path="/Floor">
-          <Floor />
+          <Floor 
+          order={order}
+          setOrder={setOrder}
+          idOrder={idOrder} 
+          setIdOrder={setIdOrder}
+
+          />
         </Route>
         <Route path="/DetailFloor">
-          <DetailFloor />
+          <DetailFloor
+           order={order}
+           setOrder={setOrder}
+           idOrder={idOrder} 
+           setIdOrder={setIdOrder}
+          />
         </Route>
       </Switch>
     </Router>

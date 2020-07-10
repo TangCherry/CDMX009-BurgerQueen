@@ -1,4 +1,4 @@
-import React, {useState, useEffect}from "react";
+import React, { useState, useEffect } from "react";
 import title from "../../assets/images/title.svg";
 import "../../assets/styles/Floor.css";
 import { withRouter } from "react-router-dom";
@@ -7,12 +7,14 @@ import PersonalNavbar from "../personalnavbar/PersonalNavbar";
 import clock from "../../assets/images/clock1.svg";
 import hourglass from "../../assets/images/hourglass.svg";
 import sign from "../../assets/images/sign.svg";
-import Table from 'react-bootstrap/Table';
+import Table from "react-bootstrap/Table";
 import Datauser from "../datauser/Datauser";
+import GetDetailFloor from "../get/GetDetailFloor";
+import DetailFloor from "../detailfloor/DetailFloor";
 
 const Floor = (props) => {
-
-  let [order, setOrder] = useState([]);
+  // let [order, setOrder] = useState([]);
+  // let [idOrder, setIdOrder] = useState([]);
   React.useEffect(() => {
     let hour;
     const getData = async () => {
@@ -21,14 +23,15 @@ const Floor = (props) => {
         // console.log(res)
         const data = await db
           .collection("order")
-          .orderBy("id", "asc")
+          .orderBy("incomingHour", "asc")
           .get();
+          console.log('lanuevañonga',data);
         const arrayData = data.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
         // hour.
-        setOrder(arrayData);
+        props.setOrder(arrayData);
         console.log(arrayData);
       } catch (error) {
         console.log(error);
@@ -37,10 +40,16 @@ const Floor = (props) => {
     getData();
   }, []);
   //  console.log(payment)
-
+  const detailfloor = (item) => {
+    //     {props.addOrder}
+    props.history.push("/DetailFloor");
+    props.setIdOrder(item)
+    console.log('hi',item)
+  };
+  
   return (
     <div className="container mt-5">
-      <Datauser/>
+      <Datauser />
       <div className="box1">
         <div className="text-center">
           <img src={title} className="images"></img>
@@ -50,32 +59,46 @@ const Floor = (props) => {
           <br></br>
           <br></br>
         </div>
+
         <Table>
+          
           <div className="">
-          <tr>
-            <th>Mesa</th>
-            <th> <img src={clock}/></th>
-            <th><img src={hourglass}/></th>
-            <th><img src={sign}/></th>
-            <th>Status</th>
-            <th>Ver</th>
-          </tr>
-          <tbody>
             <tr>
-              {console.log('order',order)}
-            {order.map((item) => (
-              <td key={item.id} className="">
-                <td>{item.table}</td>
-                <td></td>
-                {/* <td >{item.incomingHour}</td> */}
-                {/* <td>{item.check}</td> */}
-              </td>
-            ))}
+              <th>Mesa</th>
+              <th>
+                {" "}
+                <img src={clock} />
+              </th>
+              <th>
+                <img src={hourglass} />
+              </th>
+              <th>
+                <img src={sign} />
+              </th>
+              <th>Ver</th>
             </tr>
+            <tbody>
+              {/* {console.log("order", order)} */}
+              {props.order.map((item) => (
+              
+                <tr key={item.id} className="">
+                  <td className="text-center">{item.table}</td>
+                  <td>{item.incomingHour.split(" ").pop()}</td>
+                  <td>{item.userName}</td>
+                  <td className="openStatus">{item.status}</td>
+                 
+                  {/* <th {...item.status === 'Abierto' ? satus :  }></th> */}
+
+                  <td className="detailfloor" onClick={() => detailfloor(item)}>
+                    Ver
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </div>
         </Table>
-        <PersonalNavbar/>
+
+        <PersonalNavbar />
       </div>
     </div>
   );

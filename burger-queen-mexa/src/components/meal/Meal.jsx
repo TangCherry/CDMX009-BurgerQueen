@@ -52,7 +52,8 @@ const Meal = (props) => {
         totQuantity: totalQuantity,
         table: table,
         userName: props.user.user,
-        incomingHour: Date.now(),
+        incomingHour: new Date().toLocaleString(),
+        status: 'Abierta',
       };
       const conection = db.collection("order").add(newOrder);
     };

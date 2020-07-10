@@ -1,4 +1,4 @@
-import React, { useAuth } from "react";
+import React from "react";
 import "../../assets/styles/Personal.css";
 import title from "../../assets/images/title.svg";
 import waiter from "../../assets/images/waiter.svg";
@@ -10,7 +10,7 @@ import Datauser from "../datauser/Datauser";
 // import Username from "../usern/Username";
 
 const Personal = (props) => {
-
+// console.log('userts', user.user)
 
   
   const logOut = () => {
