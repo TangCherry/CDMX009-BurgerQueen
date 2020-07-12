@@ -13,6 +13,7 @@ const DetailFloor = (props) => {
   // {console.log('bye',props.idOrder)}
   // console.log('elid?',props.item);
   let [order, setOrder] = useState([]);
+  let [arrayItem, setArrayItem] = useState([]);
   useEffect(() => {
     //   let hour;
     const getData = async () => {
@@ -28,7 +29,13 @@ const DetailFloor = (props) => {
           id: doc.id,
           ...doc.data(),
         }));
+
         setOrder(arrayData);
+        arrayData.forEach((product) => {
+          let bb = product.item;
+          // console.log(bb);
+          setArrayItem(bb);
+        });
         // console.log(arrayData);
       } catch (error) {
         // console.log(error);
@@ -49,42 +56,56 @@ const DetailFloor = (props) => {
           <img alt="" src={title} className="images"></img>
         </div>
         <div className="mt-5 text-center">
-          <div className="menuTitle">Pedido</div>
+          <div className="menuTitle">Orden</div>
           <br></br>
           <br></br>
         </div>
-        <div className="numbertable">
-          <p id="paragraph">
-            No. Mesa
-            <img alt="" src={rec}></img>
-          </p>
-          <p id="waiterUser">Mesero:</p>
-        </div>
         <Table>
-          <tbody>
-            <tr>
-              <th>Producto</th>
-              <th>Cantidad</th>
-              <th>Precio</th>
-            </tr>
-          </tbody>
-        </Table>
-        <Table>
-          <tbody>
+          <thead>
             {order.map((item) => (
-              <tr key={item.id} className="">
-                <td className="text-center">{item.table}</td>
-                <td>{item.incomingHour.split(" ").pop()}</td>
-                <td>{item.userName}</td>
-                <td className="openStatus">{item.status}</td>
-                {/* <th {...item.status === 'Abierto' ? satus :  }></th> */}
+              <tr key={item.id} className="text-center">
+                <td id="paragraph">No. Mesa: {item.table}</td>
+                <td id="paragraph">Meserx: {item.userName}</td>
+              </tr>
+            ))}
+          </thead>
+        </Table>
 
-                <td className="detailfloor" onClick={() => floor()}>
-                  Ver
+        <Table>
+          <thead>
+            <tr>
+              <th id="text-center">Producto</th>
+              <th className="text-center">Cantidad</th>
+              <th className="text-center">Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            {arrayItem.map((e, i) => (
+              <tr key={i} className="text-center">
+                <td id="paragraph1" key={e.pro}>
+                  {" "}
+                  {e.produItem}
+                </td>
+                <td id="paragraph" key={e.qua}>
+                  {" "}
+                  {e.quant}
+                </td>
+                <td id="paragraph" key={e.qua}>
+                  $ {e.unitaryPrice}
                 </td>
               </tr>
             ))}
           </tbody>
+        </Table>
+        <Table>
+          <thead>
+            {order.map((item) => (
+              <tr key={item.id} className="text-center">
+                <td id="paragraph">Total: $ {item.check}</td>
+              </tr>
+            ))}
+          </thead>
+          <tbody></tbody>
         </Table>
         <img alt="" className="check" src={bill}></img>
         <CheckNavbar />

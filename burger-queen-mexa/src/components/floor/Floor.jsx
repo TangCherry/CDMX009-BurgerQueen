@@ -72,7 +72,7 @@ const Floor = (props) => {
                 <img alt="" src={hourglass} />
               </th>
               <th>
-                <img alt="" src={sign} />
+                Status
               </th>
               <th>Ver</th>
             </tr>

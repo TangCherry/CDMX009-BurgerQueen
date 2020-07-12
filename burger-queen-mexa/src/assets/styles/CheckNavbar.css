@@ -1,15 +1,15 @@
-/* .house {
+.house {
     width: 7%;
     display: block;
     margin: auto;
-} */
+}
 .navbarMenu {
     width: 100%;
     background-color: black;
 }
-/* .back {
+.back {
     width: 6%;
-} */
-.inline {
-    display: inline-block;
+    float: left;
+    display: block;
+    margin-top: -7%;
 }

@@ -55,7 +55,7 @@ const Kitchen = (props) => {
               <th>Mesa</th>
               <th> <img alt="" src={clock}/></th>
               <th><img alt="" src={hourglass}/></th>
-              <th><img alt="" src={sign}/></th>
+              <th>Status</th>
               <th>Ver</th>
             </tr>
             </thead>

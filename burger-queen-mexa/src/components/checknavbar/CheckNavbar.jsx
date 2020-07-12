@@ -8,18 +8,22 @@ const PersonalNavbar = (props) => {
   const personal = () => {
     props.history.push("/Personal");
   };
+  const floor = () => {
+    props.history.push("/Floor");
+  };
   return (
     <div className="navbarMenu" fixed="bottom">
       <img
         alt=""
-        className="inline"
+        className="house"
         src={house}
         onClick={() => personal()}
       ></img>
       <img 
       alt=""
-      className="inline"
+      className="back"
       src={back}
+      onClick={() => floor()}
       ></img>
     </div>
   );
