@@ -6,83 +6,98 @@ import { withRouter } from "react-router-dom";
 import clock from "../../assets/images/clock1.svg";
 import hourglass from "../../assets/images/hourglass.svg";
 import Table from 'react-bootstrap/Table';
-import Datauser from "../datauser/Datauser";
 import { db } from "../firebase/firebase";
 import sign from "../../assets/images/sign.svg";
 
 const Kitchen = (props) => {
-    let [order, setOrder] = useState([]);
-    useEffect(() => {
-      const getData = async () => {
-        try {
-          // const res = auth.currentUser.uid;
-          // console.log(res)
-          const data = await db
+     // let [order, setOrder] = useState([]);
+  // let [idOrder, setIdOrder] = useState([]);
+  useEffect(() => {
+    // let hour;
+    const getData = async () => {
+      try {
+        // const res = auth.currentUser.uid;
+        // console.log(res)
+        const data = await db
           .collection("order")
           .orderBy("incomingHour", "desc")
-            .get();
-          const arrayData = data.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          // hour.
-          setOrder(arrayData);
-          // console.log(arrayData);
-        } catch (error) {
-          // console.log(error);
-        }
-      };
-      getData();
-    }, []);
-    //  console.log(payment)
+          .get();
+          // console.log('lanuevañonga',data);
+        const arrayData = data.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        // hour.
+        props.setOrder(arrayData);
+        // console.log(arrayData);
+      } catch (error) {
+        // console.log(error);
+      }
+    };
+    getData();
+  }, []);
+  //  console.log(payment)
+  const detailkitchen = (item) => {
+    //     {props.addOrder}
+    props.history.push("/DetailKitchen");
+    props.setIdOrder(item)
+    // console.log('hi',item)
+  };
   
-    return (
-      <div className="container mt-5">
-        <Datauser/>
-        <div className="box1">
-          <div className="text-center">
-            <img alt="" src={title} className="images"></img>
-          </div>
-          <div className="mt-5 text-center">
-            <div className="menuTitle">Piso</div>
-            <br></br>
-            <br></br>
-          </div>
-          
-          <Table>
-            <thead>
+  return (
+    <div className="container mt-5">
+      <div className="box1">
+        <div className="text-center">
+          <img alt="" src={title} className="images"></img>
+        </div>
+        <div className="mt-5 text-center">
+          <div className="menuTitle">Piso</div>
+          <br></br>
+          <br></br>
+        </div>
+
+        <Table>
+        <thead>
+         
             <tr>
               <th>Mesa</th>
-              <th> <img alt="" src={clock}/></th>
-              <th><img alt="" src={hourglass}/></th>
-              <th>Status</th>
+              <th>
+                <img alt="" src={clock} />
+              </th>
+              <th>
+                <img alt="" src={hourglass} />
+              </th>
+              <th>
+                Status
+              </th>
               <th>Ver</th>
             </tr>
             </thead>
             <tbody>
-           
-                {/* {console.log('order',order)} */}
-              {order.map((item) => (
+              {/* {console.log("order", order)} */}
+              {props.order.map((item) => (
+              
                 <tr key={item.id} className="">
                   <td className="text-center">{item.table}</td>
-                  <td>{item.incomingHour.split(' ').pop()}</td>
+                  <td>{item.incomingHour.split(" ").pop()}</td>
                   <td>{item.userName}</td>
                   <td className="openStatus">{item.status}</td>
+                 
                   {/* <th {...item.status === 'Abierto' ? satus :  }></th> */}
-                
-                  <td className="detailKitchen">Ver</td>
+
+                  <td className="detailfloor" onClick={() => detailkitchen(item)}>
+                    Ver
+                  </td>
                 </tr>
               ))}
-             
-              </tbody>
+            </tbody>
            
-          </Table>       
-  
-          <PersonalNavbar/>
-        </div>
+        </Table>
+
+        <PersonalNavbar />
       </div>
-    );
-  };
-  
+    </div>
+  );
+};
 
 export default withRouter(Kitchen);

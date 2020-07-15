@@ -6,8 +6,10 @@ import { db } from "../firebase/firebase";
 import MenuNavbar from "../menunavbar/MenuNavbar.jsx";
 import { withRouter } from "react-router-dom";
 // import TotalQuantity from "./TotalQuantity.js";
-import Datauser from "../datauser/Datauser";
 import shortid from "shortid";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const Breakfast = (props) => {
   let [totalQuantity, setTotalQuantity] = useState(0);
@@ -15,6 +17,7 @@ const Breakfast = (props) => {
   const [product, setProduct] = useState([]);
   let [order] = useState([]);
   const [table, setTable] = useState([]);
+  let [customerName, setCustomerName] = useState([]);
 
   // console.log(product, props.user);
 
@@ -36,7 +39,7 @@ const Breakfast = (props) => {
         setBreakfastItem(arrayData);
         // console.log(arrayData);
       } catch (error) {
-        // console.log(error);
+        console.log(error);
       }
     };
     getData();
@@ -57,7 +60,8 @@ const Breakfast = (props) => {
       userName: props.user.user,
       incomingHour: new Date().toLocaleString(),
       // incomingHour: Date.now(),
-      status: 'Abierta',
+      status: "En preparación",
+      nameCus: customerName,
     };
     const conection = db.collection("order").add(newOrder);
   };
@@ -67,7 +71,6 @@ const Breakfast = (props) => {
   };
   return (
     <div className="container mt-5">
-      <Datauser />
       <div></div>
       <div className="box1">
         <div className="text-center">
@@ -86,6 +89,21 @@ const Breakfast = (props) => {
           </select>
         </div>
         <div className="">
+          <Form>
+            <Row>
+              <Col>
+                {/* <div className="customer">Nombre Cliente</div> */}
+                <Form.Control
+                  className="customer"
+                  placeholder="Cliente"
+                  id="name"
+                  onChange={(e) => setCustomerName(e.target.value)}
+                  value={customerName}
+                />
+              </Col>
+            </Row>
+          </Form>
+
           <div className="menuTitle text-center">Menú</div>
           <br></br>
           <br></br>
@@ -94,7 +112,7 @@ const Breakfast = (props) => {
               <div key={item.uid} className="">
                 <div className="itemText ">{item.item}</div>
                 <div className="priceText  ">$ {item.price}.00</div>
-                <div>
+                
                   <CounterInput
                     min={0}
                     max={100}
@@ -145,11 +163,12 @@ const Breakfast = (props) => {
                       }
                     }}
                   />
-                </div>
+                
                 <div className="descriptionText"> ({item.description})</div>
-              </div>
+                </div>
             ))}
           </li>
+
           <MenuNavbar
             totalQuantity={totalQuantity}
             payment={payment}

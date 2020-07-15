@@ -3,9 +3,10 @@
     display: block;
     margin: auto;
 }
-.navbarMenu {
+.navbarCheck {
     width: 100%;
     background-color: black;
+    margin-top: 40%;
 }
 .back {
     width: 6%;

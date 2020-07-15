@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import title from "../../assets/images/title.svg";
-import "../../assets/styles/DetailFloor.css";
+import "../../assets/styles/DetailKitchen.css";
 import rec from "../../assets/images/yellowrec.svg";
-import bill from "../../assets/images/bill.svg";
+import Ready from "../../assets/images/orderReady.svg";
 import Table from "react-bootstrap/Table";
 import CheckNavbar from "../checknavbar/CheckNavbar";
 import { withRouter } from "react-router-dom";
 import { db } from "../firebase/firebase";
 
-const DetailFloor = (props) => {
+const DetailKitchen = (props) => {
   // {console.log('bye',props.idOrder)}
   // console.log('elid?',props.item);
   let [order, setOrder] = useState([]);
@@ -42,10 +42,56 @@ const DetailFloor = (props) => {
     };
     getData();
   }, []);
-  const floor = () => {
-    //     {props.addOrder}
-    props.history.push("/DetailFloor");
-  };
+
+    const orderReady = async  () => {
+      // console.log('click', item.status)
+      // const newStatus = {
+      //   status: 'Listo',
+      // };
+      const res = props.idOrder.id;
+      const data = await db.collection("order").where("id", "==", res).get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            doc.ref.update({  status: 'Listo'});
+            // If you need the doc id, use `doc.id`
+        });
+        props.history.push("/Kitchen");
+        console.log("listo")
+   })
+
+    
+      // props.setIdOrder(item)
+      // console.log('hi',item)
+    };
+  // }, []);
+
+  // let [orderReady, setOrderReady] = useState([]);
+  // const orderReady = async () => {
+  //   try {
+  //     const res = props.idOrder.id;
+  //     //   console.log('lañonga',res)
+  //     //   const uid = auth.currentUser.uid;
+  //     //       // console.log(uid)
+  //     const data = await db.collection("order").where("id", "==", res).get();
+  //     // console.log('lagata',data);
+  //     // const arrayData = { id: data.id, ...data.data() };
+  //     const arrayData = data.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+
+  //     setOrder(arrayData);
+  //     arrayData.forEach((product) => {
+  //       let bb = product.item;
+  //       // console.log(bb);
+  //       setArrayItem(bb);
+  //     });
+  //     // console.log(arrayData);
+  //   } catch (error) {
+  //     // console.log(error);
+  //   }
+  // };
+  // orderReady();
 
   return (
     <div className="container mt-5">
@@ -75,8 +121,6 @@ const DetailFloor = (props) => {
             <tr>
               <th id="text-center">Producto</th>
               <th className="text-center">Cantidad</th>
-              <th className="text-center">Precio</th>
-              <th className="text-center">Subtotal</th>
             </tr>
           </thead>
           <tbody>
@@ -90,34 +134,24 @@ const DetailFloor = (props) => {
                   {" "}
                   {e.quant}
                 </td>
-                <td id="paragraph" key={e.qua}>
-                  $ {e.unitaryPrice}
-                </td>
-                <td id="paragraph" key={e.qua}>
-                  $ {e.payment}
-                </td>
               </tr>
             ))}
           </tbody>
-        </Table>
-        <Table>
-          <thead>
-            {order.map((item) => (
-              <tr key={item.id} className="text-center"> 
-                  
-                <td className="check">Total: $ {item.check}</td>
-              </tr>
-            ))}
-          </thead>
           <tbody>
-          <tr className="edit">
-            {/* <td>
-            Editar
-            </td> */}
-            </tr> 
+            <tr>
+              <td>
+                <br></br>
+                <br></br>
+                <br></br>
+                {order.map((item) => (
+                <img alt="" className="ready" src={Ready} onClick={() => orderReady()} />   
+                ))}             
+              </td>
+            </tr>
           </tbody>
         </Table>
         
+
         {/* <div className="edit">Editar</div> */}
         <br></br>
         <br></br>
@@ -129,4 +163,4 @@ const DetailFloor = (props) => {
   );
 };
 
-export default withRouter(DetailFloor);
+export default withRouter(DetailKitchen);

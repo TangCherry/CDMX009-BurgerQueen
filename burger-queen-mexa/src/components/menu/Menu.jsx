@@ -7,7 +7,6 @@ import table from '../../assets/images/table.svg';
 import {auth} from '../firebase/firebase';
 import {withRouter} from 'react-router-dom';
 import PersonalNavbar from '../personalnavbar/PersonalNavbar';
-import Datauser from "../datauser/Datauser";
 
 const Menu = (props) => {
 
@@ -23,7 +22,6 @@ const Menu = (props) => {
 
     return (
     <div className="container mt-5">
-      <Datauser/>
       <div className="box1">
         <div className="text-center">
           <img src={title} className="images"></img>

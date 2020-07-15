@@ -12,7 +12,7 @@ const PersonalNavbar = (props) => {
     props.history.push("/Floor");
   };
   return (
-    <div className="navbarMenu" fixed="bottom">
+    <div className="navbarCheck" fixed="bottom">
       <img
         alt=""
         className="house"

@@ -38,13 +38,16 @@ Table {
     color:black;
     font-weight: bold;
 }
-#paragraph1{
-    font-size: 25px;
+.check{
+    margin-right: 6%;
     font-weight: bold;
-    text-align: left;
+    font-size: (30% + 1vw + 1vh);
+    color: blue;
 }
-#paragraph2{
-    font-size: 25px;
+.edit{
+    margin-left: 20%;
     font-weight: bold;
-    text-align: right;
+    font-size: 15px;
+    color: red;
+    text-decoration-line: underline;
 }

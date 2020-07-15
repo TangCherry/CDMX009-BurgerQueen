@@ -16,34 +16,28 @@ const Login = (props) => {
   const processData = (e) => {
     e.preventDefault();
     if (!email.trim()) {
-      // console.log("Ingrese Email");
       setError("Ingrese Email");
       return;
     }
     if (!pass.trim()) {
-      // console.log("Ingrese Password");
       setError("Ingrese Password");
       return;
     }
     if (pass.length < 6) {
-      // console.log("Ingrese Password de mínimo 6 carácteres");
       setError("Ingrese Password de mínimo 6 carácteres");
       return;
     }
     setError(null)
-    // console.log("Pasando todas las validaciones");
   };
-  //Aquí va la pinche perra función pa iniciar sesión
+
   const login = React.useCallback(async () => {
     try {
       const res = await auth.signInWithEmailAndPassword(email, pass)
       setEmail('')
       setPass('')
       setError(null)
-      // console.log(res.user)
       props.history.push('/Personal')
     } catch (error) {
-      // console.log(error)
       if (error.code === 'auth/invalid-email') {
         setError('Email no registrado')
       }
@@ -67,7 +61,6 @@ const Login = (props) => {
       <img className="logo" src={title} alt="title" />
       <form className="form" onSubmit={processData}>
         <div>
-
           {error && <div className="alert alert-danger">{error}</div>}
           <img className="user" src={user} alt="user" />
           <input
@@ -89,7 +82,6 @@ const Login = (props) => {
             onChange={(e) => setPass(e.target.value)}
             value={pass}
           />
-
         </div>
         <div>
           <button
@@ -105,8 +97,6 @@ const Login = (props) => {
           <h5 className="names">Nallely Flores y Danaee Partida</h5>
         </div>
       </form>
-
-
     </div>
   );
 };

@@ -8,43 +8,43 @@ import Meal from "./components/meal/Meal";
 import Floor from "./components/floor/Floor";
 import Kitchen from "./components/kitchen/Kitchen";
 import DetailFloor from "./components/detailfloor/DetailFloor";
+import DetailKitchen from "./components/detailkitchen/DetailKitchen";
 import useAuth from  './hooks/useAuth';
+import WithAuthRoute from './WithAuthRoute';
 // import { auth, db} from "./components/firebase/firebase";
 
+
 function App() {
-  const { firebaseUser, user} = useAuth();
+  const { firebaseUser, user, loading } = useAuth();
   let [order, setOrder] = useState([]);
   let [idOrder, setIdOrder] = useState([]);
 
-  return firebaseUser !== false ? (
+  if (firebaseUser === false) {
+    return <div>Cargando...</div>
+  }
+
+  return (
     <Router>
       <Switch>
         <Route path="/" exact>
           <Login />
         </Route>
-        <Route path="/Personal">
-          <Personal 
-          user = {user}
+        <WithAuthRoute path="/Personal" component={Personal} user={user} loading={loading }/>
+        {/* <WithAuthRoute path="/Kitchen" component={Kitchen} user={user} loading={loading }/> */}
+        <WithAuthRoute path="/Menu" component={Menu} user={user} loading={loading }/>
+        <WithAuthRoute path="/Breakfast" component={Breakfast} user={user} loading={loading }/>
+        <WithAuthRoute path="/Meal" component={Meal} user={user} loading={loading }/>
+        <Route path="/Floor">
+          <Floor 
+          order={order}
+          setOrder={setOrder}
+          idOrder={idOrder} 
+          setIdOrder={setIdOrder}
+
           />
         </Route>
         <Route path="/Kitchen">
-          <Kitchen />
-        </Route>
-        <Route path="/Menu">
-          <Menu />
-        </Route>
-        <Route path="/Breakfast">
-          <Breakfast 
-          user = {user}
-          />
-        </Route>
-        <Route path="/Meal">
-          <Meal
-          user = {user} 
-          />
-        </Route>
-        <Route path="/Floor">
-          <Floor 
+          <Kitchen 
           order={order}
           setOrder={setOrder}
           idOrder={idOrder} 
@@ -60,10 +60,16 @@ function App() {
            setIdOrder={setIdOrder}
           />
         </Route>
+        <Route path="/DetailKitchen">
+          <DetailKitchen
+           order={order}
+           setOrder={setOrder}
+           idOrder={idOrder} 
+           setIdOrder={setIdOrder}
+          />
+        </Route>
       </Switch>
     </Router>
-  ) : (
-    <p>Cargando... :D</p>
   );
 }
 
