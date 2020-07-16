@@ -4,10 +4,10 @@ import house from "../../assets/images/house.svg";
 import { withRouter } from "react-router-dom";
 import {agregar} from "../breakfast/Breakfast"
 import { auth, db } from "../firebase/firebase";
-import Timer from '../timer/Timer.jsx';
+// import Timer from '../timer/Timer.jsx';
 
 const MenuNavbar = (props) => {
-  console.log('segunditos',props.Timer)
+  // console.log('segunditos',props.Timer)
 
   const menu = () => {
     props.history.push("/Menu");
@@ -20,9 +20,8 @@ const MenuNavbar = (props) => {
           Productos: {props.totalQuantity}  Total: ${props.payment}
         </p>
         <button   
-            className="submit"
-            //onClick={ props.addOrder} 
-            onClick = {(e)=>{props.addOrder(); props.floor();}}
+            className={`submit-${props.isActive ? 'active' : 'inactive'}`}
+            onClick = {(e)=>{props.addOrder(); props.floor();  props.toggle()}} 
             // props.isActive = true
             >Enviar</button>
       </div>

@@ -5,7 +5,6 @@ import CounterInput from "react-bootstrap-counter";
 import { db } from "../firebase/firebase";
 import MenuNavbar from "../menunavbar/MenuNavbar.jsx";
 import { withRouter } from "react-router-dom";
-// import TotalQuantity from "./TotalQuantity.js";
 import shortid from "shortid";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -44,25 +43,39 @@ const Breakfast = (props) => {
     };
     getData();
   }, []);
+
+  const [seconds, setSeconds] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+
+  function toggle() {
+    setIsActive(!isActive);
+  }
+  useEffect(() => {
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds(seconds => seconds + 1);
+      }, 1000);
+    } else if (!isActive && seconds !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isActive, seconds]);
   //  console.log(payment)
 
   const addOrder = () => {
-    // console.log("Guardados en Firebase");
-    // const uid = auth.currentUser.uid;
-    // // console.log(uid)
-    // const userSnap = await db.collection("user").doc(uid).get();
-    const newOrder = {
-      id: shortid.generate(),
-      item: product,
-      check: payment,
-      totQuantity: totalQuantity,
-      table: table,
-      userName: props.user.user,
-      incomingHour: new Date().toLocaleString(),
-      // incomingHour: Date.now(),
-      status: "En preparación",
-      nameCus: customerName,
-    };
+        const newOrder = {
+        id: shortid.generate(),
+        item: product,
+        check: payment,
+        totQuantity: totalQuantity,
+        table: table,
+        userName: props.user.user,
+        incomingHour: new Date().toLocaleString(),
+        status: "En preparación",
+        nameCus: customerName,
+        time: seconds,
+      };
     const conection = db.collection("order").add(newOrder);
   };
   const floor = () => {
@@ -175,6 +188,8 @@ const Breakfast = (props) => {
             order={order}
             addOrder={addOrder}
             floor={floor}
+            isActive={isActive}
+            toggle={toggle}
           />
         </div>
       </div>

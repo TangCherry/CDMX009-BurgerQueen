@@ -46,9 +46,9 @@ const Menu = (props) => {
               src={table} 
               className="guest float-xs-left"
               onClick={() => tableIcon()}
-              ></img>            
-            </div> 
-            <PersonalNavbar/>    
+              ></img>    
+                          <PersonalNavbar/>        
+            </div>     
           </div> 
       </div>
     </div>

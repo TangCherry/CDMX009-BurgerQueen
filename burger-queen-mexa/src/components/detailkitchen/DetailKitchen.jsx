@@ -4,7 +4,7 @@ import "../../assets/styles/DetailKitchen.css";
 import rec from "../../assets/images/yellowrec.svg";
 import Ready from "../../assets/images/orderReady.svg";
 import Table from "react-bootstrap/Table";
-import CheckNavbar from "../checknavbar/CheckNavbar";
+import NavbarKitchen from "../navbarkitchen/NavbarKitchen";
 import { withRouter } from "react-router-dom";
 import { db } from "../firebase/firebase";
 
@@ -42,7 +42,7 @@ const DetailKitchen = (props) => {
     };
     getData();
   }, []);
-
+  
     const orderReady = async  () => {
       // console.log('click', item.status)
       // const newStatus = {
@@ -53,45 +53,20 @@ const DetailKitchen = (props) => {
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             doc.ref.update({  status: 'Listo'});
+           
             // If you need the doc id, use `doc.id`
         });
-        props.history.push("/Kitchen");
-        console.log("listo")
+  
    })
+  
+  await props.history.push("/Kitchen");
+   
+  // window.location.reload(false);
+   console.log("listo")
+  };
+  
 
-    
-      // props.setIdOrder(item)
-      // console.log('hi',item)
-    };
-  // }, []);
-
-  // let [orderReady, setOrderReady] = useState([]);
-  // const orderReady = async () => {
-  //   try {
-  //     const res = props.idOrder.id;
-  //     //   console.log('lañonga',res)
-  //     //   const uid = auth.currentUser.uid;
-  //     //       // console.log(uid)
-  //     const data = await db.collection("order").where("id", "==", res).get();
-  //     // console.log('lagata',data);
-  //     // const arrayData = { id: data.id, ...data.data() };
-  //     const arrayData = data.docs.map((doc) => ({
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     }));
-
-  //     setOrder(arrayData);
-  //     arrayData.forEach((product) => {
-  //       let bb = product.item;
-  //       // console.log(bb);
-  //       setArrayItem(bb);
-  //     });
-  //     // console.log(arrayData);
-  //   } catch (error) {
-  //     // console.log(error);
-  //   }
-  // };
-  // orderReady();
+ 
 
   return (
     <div className="container mt-5">
@@ -143,9 +118,9 @@ const DetailKitchen = (props) => {
                 <br></br>
                 <br></br>
                 <br></br>
-                {order.map((item) => (
+               
                 <img alt="" className="ready" src={Ready} onClick={() => orderReady()} />   
-                ))}             
+                
               </td>
             </tr>
           </tbody>
@@ -157,7 +132,7 @@ const DetailKitchen = (props) => {
         <br></br>
         <br></br>
         {/* <img alt="" className="check" src={bill}></img> */}
-        <CheckNavbar />
+        <NavbarKitchen/>
       </div>
     </div>
   );

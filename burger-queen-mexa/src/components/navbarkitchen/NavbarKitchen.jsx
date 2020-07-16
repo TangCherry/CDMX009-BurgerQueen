@@ -4,30 +4,31 @@ import "../../assets/styles/CheckNavbar.css";
 import house from "../../assets/images/house.svg";
 import { withRouter } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
+import Kitchen from "../kitchen/Kitchen";
 
-const CheckNavbar = (props) => {
-  const menu = () => {
-    props.history.push("/Menu");
+const NavbarKitchen = (props) => {
+  const personal = () => {
+    props.history.push("/Personal");
   };
-  const floor = () => {
-    props.history.push("/Floor");
+  const kitchen = () => {
+    props.history.push("/Kitchen");
   };
   return (
     <div className="navbarCheck" fixed="bottom">
       <div className="house">
         <img
         src={house}
-        onClick={() => menu()}
+        onClick={() => personal()}
         />
       </div>
       <div className="back">
       <img
         src={back}
-        onClick={() => floor()}
+        onClick={() => kitchen()}
         />
       </div>
     </div>
   );
 };
 
-export default withRouter(CheckNavbar);
+export default withRouter(NavbarKitchen);
