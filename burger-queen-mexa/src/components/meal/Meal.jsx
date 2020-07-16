@@ -22,16 +22,12 @@ const Meal = (props) => {
   useEffect(() => {
     const getData = async () => {
       try {
-        // const res = auth.currentUser.uid;
-        // console.log(res)
         const data = await db.collection("meal").orderBy("uid", "asc").get();
-        // console.log(data);
         const arrayData = data.docs.map((doc) => ({
           uid: doc.uid,
           ...doc.data(),
         }));
         setMealItem(arrayData);
-        // console.log(arrayData);
       } catch (error) {
         console.log(error);
       }
@@ -56,13 +52,8 @@ const Meal = (props) => {
     }
     return () => clearInterval(interval);
   }, [isActive, seconds]);
-  //  console.log(payment)
 
   const addOrder = () => {
-    // console.log("Guardados en Firebase");
-    // const uid = auth.currentUser.uid;
-    // // console.log(uid)
-    // const userSnap = await db.collection("user").doc(uid).get();
     const newOrder = {
       id: shortid.generate(),
       item: product,
@@ -79,9 +70,9 @@ const Meal = (props) => {
     const conection = db.collection("order").add(newOrder);
   };
   const floor = () => {
-    //     {props.addOrder}
     props.history.push("/Floor");
   };
+
   return (
     <div className="container mt-5">
       <div></div>
@@ -98,14 +89,12 @@ const Meal = (props) => {
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
-            {/* { console.log(table)} */}
           </select>
         </div>
         <div className="">
           <Form>
             <Row>
               <Col>
-                {/* <div className="customer">Nombre Cliente</div> */}
                 <Form.Control
                   className="customer"
                   placeholder="Cliente"
@@ -116,7 +105,6 @@ const Meal = (props) => {
               </Col>
             </Row>
           </Form>
-
           <div className="menuTitle text-center">Menú</div>
           <br></br>
           <br></br>
@@ -125,12 +113,10 @@ const Meal = (props) => {
               <div key={item.uid} className="">
                 <div className="itemText ">{item.item}</div>
                 <div className="priceText  ">$ {item.price}.00</div>
-                
                   <CounterInput
                     min={0}
                     max={100}
                     onChange={(total) => {
-                      // console.log('total',total , 'de', item.item)
                       let newProduct;
                       let add;
                       let totalPay;
@@ -164,7 +150,6 @@ const Meal = (props) => {
                       );
                       setTotalQuantity(add);
                       {
-                        // console.log(add);
                       }
                       totalPay = newProduct.reduce(
                         (sum, value) => sum + value.payment,

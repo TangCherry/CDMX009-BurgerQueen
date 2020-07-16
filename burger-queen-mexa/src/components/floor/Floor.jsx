@@ -10,10 +10,9 @@ import sign from "../../assets/images/sign.svg";
 import Table from "react-bootstrap/Table";
 import GetDetailFloor from "../get/GetDetailFloor";
 import DetailFloor from "../detailfloor/DetailFloor";
+import Timer from '../timer/Timer';
 
 const Floor = (props) => {
-  // let [order, setOrder] = useState([]);
-  // let [idOrder, setIdOrder] = useState([]);
   useEffect(() => {
     const getData = async () => {
       try {
@@ -73,7 +72,7 @@ const Floor = (props) => {
                 <tr key={item.id} className="">
                   <td className="text-center">{item.table}</td>
                   <td>{item.incomingHour.split(" ").pop()}</td>
-                  <td>{item.userName}</td>
+                  <td><Timer inicio={item.inicio} status={item.status}/> min</td>
                   <td className="openStatus">{item.status}</td>
                   <td className="openClose">{item.openClose}</td>
                   <td className="detailfloor" onClick={() => detailfloor(item)}>
