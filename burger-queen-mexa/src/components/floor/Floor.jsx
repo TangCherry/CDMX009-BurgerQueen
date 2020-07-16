@@ -62,6 +62,9 @@ const Floor = (props) => {
               <th>
                 Status
               </th>
+              <th>
+                Cuenta
+              </th>
               <th>Ver</th>
             </tr>
             </thead>
@@ -72,6 +75,7 @@ const Floor = (props) => {
                   <td>{item.incomingHour.split(" ").pop()}</td>
                   <td>{item.userName}</td>
                   <td className="openStatus">{item.status}</td>
+                  <td className="openClose">{item.openClose}</td>
                   <td className="detailfloor" onClick={() => detailfloor(item)}>
                     Ver
                   </td>

@@ -17,16 +17,11 @@ const Breakfast = (props) => {
   let [order] = useState([]);
   const [table, setTable] = useState([]);
   let [customerName, setCustomerName] = useState([]);
-
-  // console.log(product, props.user);
-
   const [breakfastItem, setBreakfastItem] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        // const res = auth.currentUser.uid;
-        // console.log(res)
         const data = await db
           .collection("breakfast")
           .orderBy("uid", "asc")
@@ -36,7 +31,6 @@ const Breakfast = (props) => {
           ...doc.data(),
         }));
         setBreakfastItem(arrayData);
-        // console.log(arrayData);
       } catch (error) {
         console.log(error);
       }
@@ -61,7 +55,6 @@ const Breakfast = (props) => {
     }
     return () => clearInterval(interval);
   }, [isActive, seconds]);
-  //  console.log(payment)
 
   const addOrder = () => {
         const newOrder = {
@@ -74,14 +67,15 @@ const Breakfast = (props) => {
         incomingHour: new Date().toLocaleString(),
         status: "En preparación",
         nameCus: customerName,
+        openClose: "Abierta",
         time: seconds,
       };
     const conection = db.collection("order").add(newOrder);
   };
   const floor = () => {
-    //     {props.addOrder}
     props.history.push("/Floor");
   };
+
   return (
     <div className="container mt-5">
       <div></div>
@@ -98,14 +92,12 @@ const Breakfast = (props) => {
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
-            {/* { console.log(table)} */}
           </select>
         </div>
         <div className="">
           <Form>
             <Row>
               <Col>
-                {/* <div className="customer">Nombre Cliente</div> */}
                 <Form.Control
                   className="customer"
                   placeholder="Cliente"
@@ -116,7 +108,6 @@ const Breakfast = (props) => {
               </Col>
             </Row>
           </Form>
-
           <div className="menuTitle text-center">Menú</div>
           <br></br>
           <br></br>
@@ -125,12 +116,10 @@ const Breakfast = (props) => {
               <div key={item.uid} className="">
                 <div className="itemText ">{item.item}</div>
                 <div className="priceText  ">$ {item.price}.00</div>
-                
                   <CounterInput
                     min={0}
                     max={100}
                     onChange={(total) => {
-                      // console.log('total',total , 'de', item.item)
                       let newProduct;
                       let add;
                       let totalPay;
@@ -164,7 +153,6 @@ const Breakfast = (props) => {
                       );
                       setTotalQuantity(add);
                       {
-                        // console.log(add);
                       }
                       totalPay = newProduct.reduce(
                         (sum, value) => sum + value.payment,
@@ -172,16 +160,13 @@ const Breakfast = (props) => {
                       );
                       setPayment(totalPay);
                       {
-                        // console.log(totalPay);
                       }
                     }}
                   />
-                
                 <div className="descriptionText"> ({item.description})</div>
                 </div>
             ))}
           </li>
-
           <MenuNavbar
             totalQuantity={totalQuantity}
             payment={payment}

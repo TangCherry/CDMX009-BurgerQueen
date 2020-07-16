@@ -46,6 +46,23 @@ const DetailFloor = (props) => {
     //     {props.addOrder}
     props.history.push("/DetailFloor");
   };
+  const closeOrder = async () => {
+    const res = props.idOrder.id;
+    const data = await db
+      .collection("order")
+      .where("id", "==", res)
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          doc.ref.update({ openClose: "Cerrada" });
+        });
+      });
+    const timer = setTimeout(() => {
+      props.history.push("/Floor");
+    }, 1000);
+
+    console.log("Cerrada como la virgen");
+  };
 
   return (
     <div className="container mt-5">
@@ -111,18 +128,17 @@ const DetailFloor = (props) => {
           </thead>
           <tbody>
           <tr className="edit">
-            {/* <td>
-            Editar
-            </td> */}
             </tr> 
           </tbody>
         </Table>
-        
-        {/* <div className="edit">Editar</div> */}
         <br></br>
         <br></br>
         <br></br>
-        {/* <img alt="" className="check" src={bill}></img> */}
+        <img alt="" 
+        className="check"
+        onClick={() => closeOrder()}
+        src={bill}
+        ></img>
         <CheckNavbar />
       </div>
     </div>

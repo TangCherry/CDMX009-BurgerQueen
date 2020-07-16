@@ -42,31 +42,24 @@ const DetailKitchen = (props) => {
     };
     getData();
   }, []);
-  
-    const orderReady = async  () => {
-      // console.log('click', item.status)
-      // const newStatus = {
-      //   status: 'Listo',
-      // };
-      const res = props.idOrder.id;
-      const data = await db.collection("order").where("id", "==", res).get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            doc.ref.update({  status: 'Listo'});
-           
-            // If you need the doc id, use `doc.id`
-        });
-  
-   })
-  
-  await props.history.push("/Kitchen");
-   
-  // window.location.reload(false);
-   console.log("listo")
-  };
-  
 
- 
+  const orderReady = async () => {
+    const res = props.idOrder.id;
+    const data = await db
+      .collection("order")
+      .where("id", "==", res)
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          doc.ref.update({ status: "Listo" });
+        });
+      });
+    const timer = setTimeout(() => {
+      props.history.push("/Kitchen");
+    }, 1000);
+
+    console.log("listo");
+  };
 
   return (
     <div className="container mt-5">
@@ -118,21 +111,24 @@ const DetailKitchen = (props) => {
                 <br></br>
                 <br></br>
                 <br></br>
-               
-                <img alt="" className="ready" src={Ready} onClick={() => orderReady()} />   
-                
+
+                <img
+                  alt=""
+                  className="ready"
+                  src={Ready}
+                  onClick={() => orderReady()}
+                />
               </td>
             </tr>
           </tbody>
         </Table>
-        
 
         {/* <div className="edit">Editar</div> */}
         <br></br>
         <br></br>
         <br></br>
         {/* <img alt="" className="check" src={bill}></img> */}
-        <NavbarKitchen/>
+        <NavbarKitchen />
       </div>
     </div>
   );
