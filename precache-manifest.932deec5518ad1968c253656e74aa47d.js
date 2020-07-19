@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c8bef88b57c2a093fc4993ff443def31",
+    "revision": "1b8d6c0d9dff205c88463bce8de4652f",
     "url": "/CDMX009-BurgerQueen/index.html"
   },
   {
-    "revision": "6b7773d6c14f8c161a97",
+    "revision": "591407d7c097c76110ed",
     "url": "/CDMX009-BurgerQueen/static/css/main.855d5e3f.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/CDMX009-BurgerQueen/static/js/2.51cc952a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6b7773d6c14f8c161a97",
-    "url": "/CDMX009-BurgerQueen/static/js/main.3e18ee23.chunk.js"
+    "revision": "591407d7c097c76110ed",
+    "url": "/CDMX009-BurgerQueen/static/js/main.c499af3c.chunk.js"
   },
   {
     "revision": "7c749190c2c9b4748a87",
