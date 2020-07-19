@@ -35,23 +35,6 @@ const Meal = (props) => {
     getData();
   }, []);
 
-  const [seconds, setSeconds] = useState(0);
-  const [isActive, setIsActive] = useState(false);
-
-  function toggle() {
-    setIsActive(!isActive);
-  }
-  useEffect(() => {
-    let interval = null;
-    if (isActive) {
-      interval = setInterval(() => {
-        setSeconds(seconds => seconds + 1);
-      }, 1000);
-    } else if (!isActive && seconds !== 0) {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [isActive, seconds]);
 
   const addOrder = () => {
     const newOrder = {
@@ -62,10 +45,11 @@ const Meal = (props) => {
       table: table,
       userName: props.user.user,
       incomingHour: new Date().toLocaleString(),
+      inicio: +(new Date()),
       status: "En preparación",
       nameCus: customerName,
       openClose: "Abierta",
-      time: seconds,
+      
     };
     const conection = db.collection("order").add(newOrder);
   };
@@ -173,8 +157,6 @@ const Meal = (props) => {
             order={order}
             addOrder={addOrder}
             floor={floor}
-            isActive={isActive}
-            toggle={toggle}
           />
         </div>
       </div>

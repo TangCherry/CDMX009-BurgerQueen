@@ -8,6 +8,7 @@ import hourglass from "../../assets/images/hourglass.svg";
 import Table from 'react-bootstrap/Table';
 import { db } from "../firebase/firebase";
 import sign from "../../assets/images/sign.svg";
+import Timer from '../timer/Timer';
 
 const Kitchen = (props) => {
      // let [order, setOrder] = useState([]);
@@ -80,7 +81,7 @@ const Kitchen = (props) => {
                 <tr key={item.id} className="">
                   <td className="text-center">{item.table}</td>
                   <td>{item.incomingHour.split(" ").pop()}</td>
-                  <td>{item.userName}</td>
+                  <td><Timer inicio={item.inicio} status={item.status}/> min</td>
                   <td className="openStatus">{item.status}</td>
                  
                   {/* <th {...item.status === 'Abierto' ? satus :  }></th> */}

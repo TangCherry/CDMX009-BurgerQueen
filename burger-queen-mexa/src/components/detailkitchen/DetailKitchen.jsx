@@ -7,6 +7,8 @@ import Table from "react-bootstrap/Table";
 import NavbarKitchen from "../navbarkitchen/NavbarKitchen";
 import { withRouter } from "react-router-dom";
 import { db } from "../firebase/firebase";
+// import Timer from '../timer/Timer';
+
 
 const DetailKitchen = (props) => {
   // {console.log('bye',props.idOrder)}
@@ -42,7 +44,7 @@ const DetailKitchen = (props) => {
     };
     getData();
   }, []);
-
+let [close, setClose]= useState();
   const orderReady = async () => {
     const res = props.idOrder.id;
     const data = await db
@@ -54,13 +56,16 @@ const DetailKitchen = (props) => {
           doc.ref.update({ status: "Listo" });
         });
       });
+      
     const timer = setTimeout(() => {
       props.history.push("/Kitchen");
+     
     }, 1000);
-
-    console.log("listo");
+    // const closeOrder = +(new Date()) / 1000;
+    // setClose(closeOrder)
+    
   };
-
+  // console.log(close)
   return (
     <div className="container mt-5">
       <div className="box1">
@@ -111,11 +116,12 @@ const DetailKitchen = (props) => {
                 <br></br>
                 <br></br>
                 <br></br>
-
+                {/* <Timer close={close} /> */}
                 <img
                   alt=""
                   className="ready"
                   src={Ready}
+                 
                   onClick={() => orderReady()}
                 />
               </td>

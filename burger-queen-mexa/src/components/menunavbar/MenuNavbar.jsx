@@ -19,9 +19,11 @@ const MenuNavbar = (props) => {
       <p id="item">
           Productos: {props.totalQuantity}  Total: ${props.payment}
         </p>
-        <button   
-            className={`submit-${props.isActive ? 'active' : 'inactive'}`}
-            onClick = {(e)=>{props.addOrder(); props.floor();  props.toggle()}} 
+        <button  
+          type="submit" 
+          className="submit"
+            // className={`submit-${props.isActive ? 'active' : 'inactive'}`}
+            onClick = {(e)=>{props.addOrder(); props.floor();}} 
             // props.isActive = true
             >Enviar</button>
       </div>

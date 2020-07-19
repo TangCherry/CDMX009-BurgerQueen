@@ -25,7 +25,7 @@ const Floor = (props) => {
           ...doc.data(),
         }));
         props.setOrder(arrayData);
-        console.log(arrayData)
+        // console.log(arrayData)
       } catch (error) {
         console.log(error);
       }

@@ -61,7 +61,7 @@ const DetailFloor = (props) => {
       props.history.push("/Floor");
     }, 1000);
 
-    console.log("Cerrada como la virgen");
+    // console.log("Cerrada como la virgen");
   };
 
   return (
