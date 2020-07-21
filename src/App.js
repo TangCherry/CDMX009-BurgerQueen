@@ -11,6 +11,7 @@ import DetailFloor from "./components/detailfloor/DetailFloor";
 import DetailKitchen from "./components/detailkitchen/DetailKitchen";
 import useAuth from  './hooks/useAuth';
 import WithAuthRoute from './WithAuthRoute';
+import MsjError from "./components/modal/MsjError";
 // import { auth, db} from "./components/firebase/firebase";
 
 
@@ -26,7 +27,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact>
+        <Route path="/Login" exact>
           <Login />
         </Route>
         <WithAuthRoute path="/Personal" component={Personal} user={user} loading={loading }/>
@@ -67,6 +68,9 @@ function App() {
            idOrder={idOrder} 
            setIdOrder={setIdOrder}
           />
+        </Route>
+        <Route path="/MsjError" >
+          <MsjError />
         </Route>
       </Switch>
     </Router>

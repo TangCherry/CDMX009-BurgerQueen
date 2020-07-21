@@ -8,7 +8,7 @@ import NavbarKitchen from "../navbarkitchen/NavbarKitchen";
 import { withRouter } from "react-router-dom";
 import { db } from "../firebase/firebase";
 import Timer from '../timer/Timer';
-
+const moment = require('moment');
 
 const DetailKitchen = (props) => {
   // {console.log('bye',props.idOrder)}
@@ -46,6 +46,8 @@ const DetailKitchen = (props) => {
   }, []);
 let [close, setClose]= useState();
   const orderReady = async () => {
+    let newDate = moment(new Date())
+    let readyAt = (newDate.hour()*60) + newDate.minute();
     const res = props.idOrder.id;
     const data = await db
       .collection("order")
@@ -53,7 +55,7 @@ let [close, setClose]= useState();
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-          doc.ref.update({ status: "Listo", readyAt: +(new Date()) });
+          doc.ref.update({ status: "Listo", readyAt: readyAt});
         });
       });
       

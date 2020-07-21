@@ -9,6 +9,7 @@ import Table from 'react-bootstrap/Table';
 import { db } from "../firebase/firebase";
 import sign from "../../assets/images/sign.svg";
 import Timer from '../timer/Timer';
+const moment = require('moment');
 
 const Kitchen = (props) => {
      // let [order, setOrder] = useState([]);
@@ -44,7 +45,8 @@ const Kitchen = (props) => {
     props.setIdOrder(item)
     // console.log('hi',item)
   };
-  
+  // let newHour = (readyAt.hour()*60) + readyAt.minute();
+
   return (
     <div className="container mt-5">
       <div className="box1">
@@ -81,10 +83,11 @@ const Kitchen = (props) => {
                 <tr key={item.id} className="">
                   <td className="text-center">{item.table}</td>
                   <td>{item.incomingHour.split(" ").pop()}</td>
-                  <td>{item.status === 'En preparación' ? <Timer inicio={item.inicio} status={item.status}/> :  (((item.readyAt / 1000)/60) - ((item.inicio / 1000)/60)).toFixed(2)}</td>
+                  <td>{item.status === 'En preparación' ? <Timer inicio={item.inicio} status={item.status}/> : item.readyAt - item.startAt} min</td>
+                  
                   <td className="openStatus">{item.status}</td>
                  
-                  {/* <th {...item.status === 'Abierto' ? satus :  }></th> */}
+                  {/* <th {...item.status === 'Abierto' ? satus :  }></th> (((item.readyAt / 1000)/60) - ((item.inicio / 1000)/60)).toFixed(2)     moment(item.readyAt.hour()*60) + item.readyAt.minute() */  }
 
                   <td className="detailfloor" onClick={() => detailkitchen(item)}>
                     Ver

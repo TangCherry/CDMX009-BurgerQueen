@@ -10,6 +10,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Timer from '../timer/Timer';
+const moment = require('moment');
 
 const Meal = (props) => {
   let [totalQuantity, setTotalQuantity] = useState(0);
@@ -38,6 +39,8 @@ const Meal = (props) => {
 
 
   const addOrder = () => {
+    let newDate = moment(new Date())
+    let startAt = (newDate.hour()*60) + newDate.minute();
     const newOrder = {
       id: shortid.generate(),
       item: product,
@@ -47,6 +50,7 @@ const Meal = (props) => {
       userName: props.user.user,
       incomingHour: new Date().toLocaleString(),
       inicio: +(new Date()),
+      startAt: startAt,
       status: "En preparación",
       nameCus: customerName,
       openClose: "Abierta",

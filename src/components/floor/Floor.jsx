@@ -72,9 +72,10 @@ const Floor = (props) => {
                 <tr key={item.id} className="">
                   <td className="text-center">{item.table}</td>
                   <td>{item.incomingHour.split(" ").pop()}</td>
-                  <td>{item.status === 'En preparación' ? <Timer inicio={item.inicio} status={item.status}/> :  (((item.readyAt / 1000)/60) - ((item.inicio / 1000)/60)).toFixed(2)}</td>
-                  <td className="openStatus">{item.status}</td>
-                  <td className="openClose">{item.openClose}</td>
+                  <td>{item.status === 'En preparación' ? <Timer inicio={item.inicio} status={item.status}/> : item.readyAt - item.startAt} min</td>
+                  <td className={`${item.status === 'En preparación' ? 'notReady' : 'ready'}`}>{item.status}</td>
+                  <td className={`${item.openClose === 'Abierta' ? 'open' : 'Close'}`}>{item.openClose}</td>
+                  {/* <td className="openClose">{item.openClose}</td> */}
                   <td className="detailfloor" onClick={() => detailfloor(item)}>
                     Ver
                   </td>

@@ -7,6 +7,7 @@ import Table from "react-bootstrap/Table";
 import CheckNavbar from "../checknavbar/CheckNavbar";
 import { withRouter } from "react-router-dom";
 import { db } from "../firebase/firebase";
+// import MsjError from "../modal/MsjError";
 
 const DetailFloor = (props) => {
   // {console.log('bye',props.idOrder)}
@@ -62,6 +63,9 @@ const DetailFloor = (props) => {
     }, 1000);
 
     // console.log("Cerrada como la virgen");
+  };
+  const msjError = () => {
+    // alert('La orden todavía no esta lista.')
   };
 
   return (
@@ -134,11 +138,17 @@ const DetailFloor = (props) => {
         <br></br>
         <br></br>
         <br></br>
-        <img alt="" 
+        {order.map((item) => (
+              <div key={item.id} className="text-center"> 
+                   <img alt="" 
         className="check"
-        onClick={() => closeOrder()}
+        onClick={item.status === 'Listo' ? () => closeOrder():  () => msjError()}
         src={bill}
         ></img>
+        {/* <MsjError /> */}
+              </div>
+            ))}
+       
         <CheckNavbar />
       </div>
     </div>

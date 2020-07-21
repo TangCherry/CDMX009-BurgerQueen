@@ -11,7 +11,7 @@ const Personal = (props) => {
 
   const logOut = () => {
     auth.signOut().then(() => {
-      props.history.push("/");
+      props.history.push("/Login");
     });
   };
 
