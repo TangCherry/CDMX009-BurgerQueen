@@ -7,7 +7,7 @@ import Table from "react-bootstrap/Table";
 import CheckNavbar from "../checknavbar/CheckNavbar";
 import { withRouter } from "react-router-dom";
 import { db } from "../firebase/firebase";
-// import MsjError from "../modal/MsjError";
+import MsjError from "../modal/MsjError";
 
 const DetailFloor = (props) => {
   // {console.log('bye',props.idOrder)}
@@ -65,7 +65,8 @@ const DetailFloor = (props) => {
     // console.log("Cerrada como la virgen");
   };
   const msjError = () => {
-    // alert('La orden todavía no esta lista.')
+    // MsjError();
+    alert('La orden todavía no esta lista.')
   };
 
   return (

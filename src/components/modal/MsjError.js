@@ -1,21 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+// import Modal from 'react-modal';
+
 const MsjError = (props) => {
-  console.log('estoy aqui')
+  const [show, setShow] = useState(false);
+
+  // const closeModal = () => setShow();
+  // const launchModal = () => setShow();
+  
+  
 return (
-  <div className="modal">
-    <div className="modal-dialog" role="document">
-      <div className="modal-content">
-        <h5> Oh ño</h5>
-      </div>
-    </div>
-    <div className="modal-body">
-      <p> La orden no esta lista todavía</p>
-    </div>
-    <div className="modal-footer">
-      <button>Cerrar </button>
-    </div>
-  </div>
+  <>
+  <Button onClick={() => setShow(true)}> </Button>
+   {
+     (show) && (<Modal.Dialog >
+      <Modal.Header closeButton>
+        <Modal.Title>Ha ocurrido un error</Modal.Title>
+      </Modal.Header>
+    
+      <Modal.Body>
+        <p>La orden no está lista todavía</p>
+      </Modal.Body>
+    
+      <Modal.Footer>
+        <Button variant="secondary" onClick={() => setShow(false)} >Cerrar</Button>
+      </Modal.Footer>
+      </Modal.Dialog>
+    )
+   }
+  
+</>
 )
 }
 export default withRouter(MsjError);

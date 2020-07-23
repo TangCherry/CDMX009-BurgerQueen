@@ -85,7 +85,7 @@ const Kitchen = (props) => {
                   <td>{item.incomingHour.split(" ").pop()}</td>
                   <td>{item.status === 'En preparación' ? <Timer inicio={item.inicio} status={item.status}/> : item.readyAt - item.startAt} min</td>
                   
-                  <td className="openStatus">{item.status}</td>
+                  <td className={`${item.status === 'En preparación' ? 'notReady' : 'ready'}`}>{item.status}</td>
                  
                   {/* <th {...item.status === 'Abierto' ? satus :  }></th> (((item.readyAt / 1000)/60) - ((item.inicio / 1000)/60)).toFixed(2)     moment(item.readyAt.hour()*60) + item.readyAt.minute() */  }
 
