@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/login/Login";
 import Personal from "./components/personal/Personal";
 import Menu from "./components/menu/Menu";
@@ -11,7 +11,7 @@ import DetailFloor from "./components/detailfloor/DetailFloor";
 import DetailKitchen from "./components/detailkitchen/DetailKitchen";
 import useAuth from  './hooks/useAuth';
 import WithAuthRoute from './WithAuthRoute';
-import MsjError from "./components/modal/MsjError";
+// import MsjError from "./components/modal/MsjError";
 // import { auth, db} from "./components/firebase/firebase";
 
 
@@ -27,7 +27,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/Login" exact>
+        <Route path="/" exact>
           <Login />
         </Route>
         <WithAuthRoute path="/Personal" component={Personal} user={user} loading={loading }/>
@@ -69,9 +69,9 @@ function App() {
            setIdOrder={setIdOrder}
           />
         </Route>
-        <Route path="/MsjError" >
+        {/* <Route path="/MsjError" >
           <MsjError />
-        </Route>
+        </Route> */}
       </Switch>
     </Router>
   );

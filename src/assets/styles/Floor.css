@@ -46,3 +46,11 @@ td {
 .notReady{
   color: red ;
 }
+.trash{
+  width: 5vw;
+  height: 5vh;
+}
+.Trash{
+  width: 3.5vw;
+  height: 3.5vh;
+}

@@ -24,16 +24,18 @@ const Menu = (props) => {
     <div className="container mt-5">
       <div className="box1">
         <div className="text-center">
-          <img src={title} className="images"></img>
+          <img alt="title" src={title} className="images" />
         </div>
           <div className="row ">
             <div className="mt-5 col-12 text-center">
-              <img 
+              <img
+              alt="breakfast"
               src={breakfast} 
               className="breakfast float-xs-left "
               onClick={() => breakfastIcon()}
               />
               <img 
+              alt="meal"
               src={meal} 
               className="meal float-xs-left "
               onClick={() => mealIcon()}
@@ -46,7 +48,7 @@ const Menu = (props) => {
               src={table} 
               className="guest float-xs-left"
               onClick={() => tableIcon()}
-              ></img>    
+              />    
                           <PersonalNavbar/>        
             </div>     
           </div> 

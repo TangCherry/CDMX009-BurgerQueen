@@ -9,7 +9,7 @@ const WithAuthRoute = ({ path, user, component: Component, loading }) => {
   }
 
   if (!user.user) {
-    return   <Redirect to="/Login" />;
+    return   <Redirect to="/" />;
   }
 
   return (

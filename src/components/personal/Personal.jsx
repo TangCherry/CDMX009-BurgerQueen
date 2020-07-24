@@ -37,11 +37,13 @@ const Personal = (props) => {
         <div className="row ">
           <div className="mt-5 col-12 text-center">
             <img
+            alt="waiter"
               src={waiter}
               className="waiter float-xs-left "
               onClick={() => menu()}
             ></img>
             <img 
+            alt="chef"
             src={chef} 
             className="chef float-xs-right"
             onClick={() => kitchen()}

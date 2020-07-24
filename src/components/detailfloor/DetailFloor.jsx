@@ -7,13 +7,15 @@ import Table from "react-bootstrap/Table";
 import CheckNavbar from "../checknavbar/CheckNavbar";
 import { withRouter } from "react-router-dom";
 import { db } from "../firebase/firebase";
-import MsjError from "../modal/MsjError";
+// import MsjError from "../modal/MsjError";
 
 const DetailFloor = (props) => {
   // {console.log('bye',props.idOrder)}
   // console.log('elid?',props.item);
   let [order, setOrder] = useState([]);
   let [arrayItem, setArrayItem] = useState([]);
+  // const { show, MsjError} = MsjError();
+
   useEffect(() => {
     //   let hour;
     const getData = async () => {
@@ -65,8 +67,7 @@ const DetailFloor = (props) => {
     // console.log("Cerrada como la virgen");
   };
   const msjError = () => {
-    // MsjError();
-    alert('La orden todavía no esta lista.')
+    alert('La orden no está lista todavía')
   };
 
   return (
@@ -143,7 +144,7 @@ const DetailFloor = (props) => {
               <div key={item.id} className="text-center"> 
                    <img alt="" 
         className="check"
-        onClick={item.status === 'Listo' ? () => closeOrder():  () => msjError()}
+        onClick={item.status === 'Listo' ? () => closeOrder(): () => msjError()}
         src={bill}
         ></img>
         {/* <MsjError /> */}

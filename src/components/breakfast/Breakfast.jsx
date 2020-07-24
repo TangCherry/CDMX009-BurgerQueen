@@ -58,6 +58,7 @@ const Breakfast = (props) => {
         openClose: "Abierta",
       };
     const conection = db.collection("order").add(newOrder);
+    const conect = db.collection("orderHistory").add(newOrder);
   };
   const floor = () => {
     props.history.push("/Floor");

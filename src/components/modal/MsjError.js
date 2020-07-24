@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 // import Modal from 'react-modal';
@@ -16,7 +16,7 @@ return (
   <Button onClick={() => setShow(true)}> </Button>
    {
      (show) && (<Modal.Dialog >
-      <Modal.Header closeButton>
+      <Modal.Header closeButton onClick={() => setShow(false)}>
         <Modal.Title>Ha ocurrido un error</Modal.Title>
       </Modal.Header>
     
@@ -28,10 +28,11 @@ return (
         <Button variant="secondary" onClick={() => setShow(false)} >Cerrar</Button>
       </Modal.Footer>
       </Modal.Dialog>
+
     )
    }
-  
+  {show  }
 </>
 )
 }
-export default withRouter(MsjError);
+export default MsjError;
