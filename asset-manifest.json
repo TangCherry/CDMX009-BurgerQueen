@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/CDMX009-BurgerQueen/static/css/main.910565e8.chunk.css",
-    "main.js": "/CDMX009-BurgerQueen/static/js/main.d01cf56b.chunk.js",
-    "main.js.map": "/CDMX009-BurgerQueen/static/js/main.d01cf56b.chunk.js.map",
+    "main.js": "/CDMX009-BurgerQueen/static/js/main.c17a5cc1.chunk.js",
+    "main.js.map": "/CDMX009-BurgerQueen/static/js/main.c17a5cc1.chunk.js.map",
     "runtime-main.js": "/CDMX009-BurgerQueen/static/js/runtime-main.467ef1bc.js",
     "runtime-main.js.map": "/CDMX009-BurgerQueen/static/js/runtime-main.467ef1bc.js.map",
     "static/js/2.0b7332c2.chunk.js": "/CDMX009-BurgerQueen/static/js/2.0b7332c2.chunk.js",
     "static/js/2.0b7332c2.chunk.js.map": "/CDMX009-BurgerQueen/static/js/2.0b7332c2.chunk.js.map",
     "index.html": "/CDMX009-BurgerQueen/index.html",
-    "precache-manifest.e379fe6faebd26979aa7e4e9ce73fd9c.js": "/CDMX009-BurgerQueen/precache-manifest.e379fe6faebd26979aa7e4e9ce73fd9c.js",
+    "precache-manifest.4ddeedd0ed18a93efe8b359378c19bf3.js": "/CDMX009-BurgerQueen/precache-manifest.4ddeedd0ed18a93efe8b359378c19bf3.js",
     "service-worker.js": "/CDMX009-BurgerQueen/service-worker.js",
     "static/css/main.910565e8.chunk.css.map": "/CDMX009-BurgerQueen/static/css/main.910565e8.chunk.css.map",
     "static/js/2.0b7332c2.chunk.js.LICENSE.txt": "/CDMX009-BurgerQueen/static/js/2.0b7332c2.chunk.js.LICENSE.txt",
@@ -37,6 +37,6 @@
     "static/js/runtime-main.467ef1bc.js",
     "static/js/2.0b7332c2.chunk.js",
     "static/css/main.910565e8.chunk.css",
-    "static/js/main.d01cf56b.chunk.js"
+    "static/js/main.c17a5cc1.chunk.js"
   ]
 }
