@@ -4,13 +4,13 @@
 
 Pensamos nuestro diseño para que fuera fácilmente adaptable a un dispositivo iPad Pro tanto para el área de cocina como para la de piso.
 La interfaz es intuitiva, sencilla y práctica para que el usuario, sea quién se sienta familiarizado rápidamente con la aplicación.
-![burger-queen-mexa-bajafidelidad]("https://i.ibb.co/8Kjm25T/burger-queen-mexa-baja.png")
+![burger-queen-mexa-bajafidelidad](https://i.ibb.co/8Kjm25T/burger-queen-mexa-baja.png)
 
 En nuestra app, el área de piso ingresa con un correo previamente asignado por la administración donde tiene acceso a los dos menús que se manejan, puede ver las mesas, aparece la hora en que se hizo la orden, el tiempo que le tomó a cocina tener listo el pedido, los productos elegidos en esta y el total a pagar.
 Por el lado de cocina, las ordenes van llegando por hora de entrada e inicia un contador para tener en cuenta el tiempo que les toma tener lista la orden además de que cuando está lista aparecerá en la pantalla y el mesero puede ir rápidamente por ella.
 Una vez que la orden ha sido entregada y los comensales están listos para retirarse, la orden puede cerrarse para que la mesa esté lista para una nueva orden.
 
-![burger-queen-mexa]("https://i.ibb.co/XYRr5kf/burger-queen.png")
+![burger-queen-mexa](https://i.ibb.co/XYRr5kf/burger-queen.png)
 
 Puedes ver nuestra app finalizada aquí [Burger Queen Mexa](https://fasez26.github.io/CDMX009-BurgerQueen/#/)
 
