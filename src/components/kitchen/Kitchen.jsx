@@ -12,40 +12,27 @@ import Timer from '../timer/Timer';
 const moment = require('moment');
 
 const Kitchen = (props) => {
-     // let [order, setOrder] = useState([]);
-  // let [idOrder, setIdOrder] = useState([]);
   useEffect(() => {
-    // let hour;
     const getData = async () => {
       try {
-        // const res = auth.currentUser.uid;
-        // console.log(res)
         const data = await db
           .collection("order")
           .orderBy("incomingHour", "desc")
           .get();
-          // console.log('lanuevañonga',data);
         const arrayData = data.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-        // hour.
         props.setOrder(arrayData);
-        // console.log(arrayData);
       } catch (error) {
-        // console.log(error);
       }
     };
     getData();
   }, []);
-  //  console.log(payment)
   const detailkitchen = (item) => {
-    //     {props.addOrder}
     props.history.push("/DetailKitchen");
     props.setIdOrder(item)
-    // console.log('hi',item)
   };
-  // let newHour = (readyAt.hour()*60) + readyAt.minute();
 
   return (
     <div className="container mt-5">
@@ -58,10 +45,8 @@ const Kitchen = (props) => {
           <br></br>
           <br></br>
         </div>
-
         <Table>
         <thead>
-         
             <tr>
               <th>Mesa</th>
               <th>
@@ -77,27 +62,19 @@ const Kitchen = (props) => {
             </tr>
             </thead>
             <tbody>
-              {/* {console.log("order", order)} */}
               {props.order.map((item) => (
-              
                 <tr key={item.id} className="">
                   <td className="text-center">{item.table}</td>
                   <td>{item.incomingHour.split(" ").pop()}</td>
                   <td>{item.status === 'En preparación' ? <Timer inicio={item.inicio} status={item.status}/> : item.readyAt - item.startAt} min</td>
-                  
                   <td className={`${item.status === 'En preparación' ? 'notReady' : 'ready'}`}>{item.status}</td>
-                 
-                  {/* <th {...item.status === 'Abierto' ? satus :  }></th> (((item.readyAt / 1000)/60) - ((item.inicio / 1000)/60)).toFixed(2)     moment(item.readyAt.hour()*60) + item.readyAt.minute() */  }
-
                   <td className="detailfloor" onClick={() => detailkitchen(item)}>
                     Ver
                   </td>
                 </tr>
               ))}
             </tbody>
-           
         </Table>
-
         <PersonalNavbar />
       </div>
     </div>

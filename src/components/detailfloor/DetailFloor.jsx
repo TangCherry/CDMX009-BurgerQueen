@@ -7,46 +7,31 @@ import Table from "react-bootstrap/Table";
 import CheckNavbar from "../checknavbar/CheckNavbar";
 import { withRouter } from "react-router-dom";
 import { db } from "../firebase/firebase";
-// import MsjError from "../modal/MsjError";
 
 const DetailFloor = (props) => {
-  // {console.log('bye',props.idOrder)}
-  // console.log('elid?',props.item);
   let [order, setOrder] = useState([]);
   let [arrayItem, setArrayItem] = useState([]);
-  // const { show, MsjError} = MsjError();
 
   useEffect(() => {
-    //   let hour;
     const getData = async () => {
       try {
         const res = props.idOrder.id;
-        //   console.log('lañonga',res)
-        //   const uid = auth.currentUser.uid;
-        //       // console.log(uid)
         const data = await db.collection("order").where("id", "==", res).get();
-        // console.log('lagata',data);
-        // const arrayData = { id: data.id, ...data.data() };
         const arrayData = data.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-
         setOrder(arrayData);
         arrayData.forEach((product) => {
-          let bb = product.item;
-          // console.log(bb);
-          setArrayItem(bb);
+          let orderHistory = product.item;
+          setArrayItem(orderHistory);
         });
-        // console.log(arrayData);
       } catch (error) {
-        // console.log(error);
       }
     };
     getData();
   }, []);
   const floor = () => {
-    //     {props.addOrder}
     props.history.push("/DetailFloor");
   };
   const closeOrder = async () => {
@@ -63,8 +48,6 @@ const DetailFloor = (props) => {
     const timer = setTimeout(() => {
       props.history.push("/Floor");
     }, 1000);
-
-    // console.log("Cerrada como la virgen");
   };
   const msjError = () => {
     alert('La orden no está lista todavía')
@@ -92,7 +75,6 @@ const DetailFloor = (props) => {
             ))}
           </thead>
         </Table>
-
         <Table>
           <thead>
             <tr>
@@ -126,8 +108,7 @@ const DetailFloor = (props) => {
         <Table>
           <thead>
             {order.map((item) => (
-              <tr key={item.id} className="text-center"> 
-                  
+              <tr key={item.id} className="text-center">   
                 <td className="check">Total: $ {item.check}</td>
               </tr>
             ))}
@@ -142,15 +123,13 @@ const DetailFloor = (props) => {
         <br></br>
         {order.map((item) => (
               <div key={item.id} className="text-center"> 
-                   <img alt="" 
-        className="check"
-        onClick={item.status === 'Listo' ? () => closeOrder(): () => msjError()}
-        src={bill}
-        ></img>
-        {/* <MsjError /> */}
+                  <img alt="" 
+                  className="check"
+                  onClick={item.status === 'Listo' ? () => closeOrder(): () => msjError()}
+                  src={bill}
+                  ></img>
               </div>
             ))}
-       
         <CheckNavbar />
       </div>
     </div>

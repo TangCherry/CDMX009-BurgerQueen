@@ -9,7 +9,6 @@ import {withRouter} from 'react-router-dom';
 import PersonalNavbar from '../personalnavbar/PersonalNavbar';
 
 const Menu = (props) => {
-
     const breakfastIcon = () => {
             props.history.push('/Breakfast')
           }
@@ -49,7 +48,7 @@ const Menu = (props) => {
               className="guest float-xs-left"
               onClick={() => tableIcon()}
               />    
-                          <PersonalNavbar/>        
+            <PersonalNavbar/>        
             </div>     
           </div> 
       </div>

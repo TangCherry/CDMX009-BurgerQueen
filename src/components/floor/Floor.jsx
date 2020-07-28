@@ -9,7 +9,6 @@ import hourglass from "../../assets/images/hourglass.svg";
 import trash from "../../assets/images/trash.svg";
 import sign from "../../assets/images/sign.svg";
 import Table from "react-bootstrap/Table";
-import GetDetailFloor from "../get/GetDetailFloor";
 import DetailFloor from "../detailfloor/DetailFloor";
 import Timer from "../timer/Timer";
 
@@ -26,14 +25,12 @@ const Floor = (props) => {
           ...doc.data(),
         }));
         props.setOrder(arrayData);
-        // console.log(arrayData)
       } catch (error) {
         console.log(error);
       }
     };
     getData();
   }, []);
-
   const deleteOrder = async (item) => {
     if (window.confirm("Deseas eliminar esta orden?")) {
       const res = item.id;
@@ -47,9 +44,12 @@ const Floor = (props) => {
           });
         });
       console.log("Borrado");
+      const timer = setTimeout(() => {
+        window.location.reload(false);
+      }, 1000);
     }
+    
   };
-
   const detailfloor = (item) => {
     props.history.push("/DetailFloor");
     props.setIdOrder(item);
@@ -92,7 +92,7 @@ const Floor = (props) => {
                     <Timer inicio={item.inicio} status={item.status} />
                   ) : (
                     item.readyAt - item.startAt
-                  )}{" "}
+                  )}
                   min
                 </td>
                 <td
@@ -109,12 +109,10 @@ const Floor = (props) => {
                 >
                   {item.openClose}
                 </td>
-                {/* <td className="openClose">{item.openClose}</td> */}
                 <td className="detailfloor" onClick={() => detailfloor(item)}>
                   Ver
                 </td>
                 <td>
-                  {" "}
                   <img
                     className="Trash"
                     alt=""

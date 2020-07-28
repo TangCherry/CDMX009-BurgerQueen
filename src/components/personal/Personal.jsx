@@ -8,13 +8,11 @@ import { auth, db } from "../firebase/firebase";
 import { withRouter } from "react-router-dom";
 
 const Personal = (props) => {
-
   const logOut = () => {
     auth.signOut().then(() => {
-      props.history.push("/Login");
+      props.history.push("/");
     });
   };
-
   const menu = () => {
     props.history.push("/Menu");
   };

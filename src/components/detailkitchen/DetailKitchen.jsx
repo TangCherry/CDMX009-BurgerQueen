@@ -7,47 +7,35 @@ import Table from "react-bootstrap/Table";
 import NavbarKitchen from "../navbarkitchen/NavbarKitchen";
 import { withRouter } from "react-router-dom";
 import { db } from "../firebase/firebase";
-import Timer from '../timer/Timer';
-const moment = require('moment');
+import Timer from "../timer/Timer";
+const moment = require("moment");
 
 const DetailKitchen = (props) => {
-  // {console.log('bye',props.idOrder)}
-  // console.log('elid?',props.item);
   let [order, setOrder] = useState([]);
   let [arrayItem, setArrayItem] = useState([]);
   useEffect(() => {
-    //   let hour;
     const getData = async () => {
       try {
         const res = props.idOrder.id;
-        //   console.log('lañonga',res)
-        //   const uid = auth.currentUser.uid;
-        //       // console.log(uid)
         const data = await db.collection("order").where("id", "==", res).get();
-        // console.log('lagata',data);
-        // const arrayData = { id: data.id, ...data.data() };
         const arrayData = data.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-
         setOrder(arrayData);
         arrayData.forEach((product) => {
-          let bb = product.item;
-          // console.log(bb);
-          setArrayItem(bb);
+          let orderHistory = product.item;
+          setArrayItem(orderHistory);
         });
-        // console.log(arrayData);
       } catch (error) {
-        // console.log(error);
       }
     };
     getData();
   }, []);
-let [close, setClose]= useState();
+  let [close, setClose] = useState();
   const orderReady = async () => {
-    let newDate = moment(new Date())
-    let readyAt = (newDate.hour()*60) + newDate.minute();
+    let newDate = moment(new Date());
+    let readyAt = newDate.hour() * 60 + newDate.minute();
     const res = props.idOrder.id;
     const data = await db
       .collection("order")
@@ -55,18 +43,14 @@ let [close, setClose]= useState();
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-          doc.ref.update({ status: "Listo", readyAt: readyAt});
+          doc.ref.update({ status: "Listo", readyAt: readyAt });
         });
       });
-      
     const timer = setTimeout(() => {
       props.history.push("/Kitchen");
-     
     }, 1000);
-   
-    
   };
-  // console.log(close)
+
   return (
     <div className="container mt-5">
       <div className="box1">
@@ -121,19 +105,15 @@ let [close, setClose]= useState();
                   alt=""
                   className="ready"
                   src={Ready}
-                 
                   onClick={() => orderReady()}
                 />
               </td>
             </tr>
           </tbody>
         </Table>
-
-        {/* <div className="edit">Editar</div> */}
         <br></br>
         <br></br>
         <br></br>
-        {/* <img alt="" className="check" src={bill}></img> */}
         <NavbarKitchen />
       </div>
     </div>

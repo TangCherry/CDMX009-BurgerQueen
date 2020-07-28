@@ -69,7 +69,7 @@ const Breakfast = (props) => {
       <div></div>
       <div className="box1">
         <div className="text-center">
-          <img src={title} className="images"></img>
+          <img alt="title" src={title} className="images"></img>
         </div>
         <div className="textTable  ">
           No. Mesa
@@ -99,7 +99,7 @@ const Breakfast = (props) => {
           <div className="menuTitle text-center">Menú</div>
           <br></br>
           <br></br>
-          <li className="list-group">
+          <li id="listMenu" className="list-group">
             {breakfastItem.map((item) => (
               <div key={item.uid} className="">
                 <div className="itemText ">{item.item}</div>
@@ -111,7 +111,7 @@ const Breakfast = (props) => {
                       let newProduct;
                       let add;
                       let totalPay;
-                      if (product.find((p) => p.productId === item.uid)) {
+                      if (product.find((p) => p.productId === item.uid) ) {
                         newProduct = product.map((p) => {
                           if (p.productId !== item.uid) {
                             return p;

@@ -37,7 +37,6 @@ const Meal = (props) => {
     getData();
   }, []);
 
-
   const addOrder = () => {
     let newDate = moment(new Date())
     let startAt = (newDate.hour()*60) + newDate.minute();
@@ -54,7 +53,6 @@ const Meal = (props) => {
       status: "En preparación",
       nameCus: customerName,
       openClose: "Abierta",
-      
     };
     const conection = db.collection("order").add(newOrder);
     const conect = db.collection("orderHistory").add(newOrder);
@@ -147,18 +145,15 @@ const Meal = (props) => {
                       );
                       setPayment(totalPay);
                       {
-                        // console.log(totalPay);
                       }
                     }}
                   />
                 
                 <div className="descriptionText"> ({item.description})</div>
                 <br></br>
-                
                 </div>
             ))}
           </li>
-
           <MenuNavbar
             totalQuantity={totalQuantity}
             payment={payment}
@@ -169,7 +164,6 @@ const Meal = (props) => {
         </div>
       </div>
     </div>
-    
   );
 };
 
