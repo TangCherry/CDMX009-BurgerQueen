@@ -1,18 +1,16 @@
-import React, {useState, useEffect}from "react";
-import title from "../../assets/images/title.svg";
-import "../../assets/styles/Kitchen.css";
-import PersonalNavbar from "../personalnavbar/PersonalNavbar";
+import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
+import { db } from "../firebase/firebase";
+import PersonalNavbar from "../personalnavbar/PersonalNavbar";
+import Table from "react-bootstrap/Table";
+import Timer from "../timer/Timer";
+import title from "../../assets/images/title.svg";
 import clock from "../../assets/images/clock1.svg";
 import hourglass from "../../assets/images/hourglass.svg";
-import Table from 'react-bootstrap/Table';
-import { db } from "../firebase/firebase";
-import sign from "../../assets/images/sign.svg";
-import Timer from '../timer/Timer';
-const moment = require('moment');
+import "../../assets/styles/Kitchen.css";
 
-const Kitchen = (props) => {
-  useEffect(() => {
+const Kitchen = ({ setOrder, history, setIdOrder, order }) => {
+    useEffect(() => {
     const getData = async () => {
       try {
         const data = await db
@@ -23,57 +21,67 @@ const Kitchen = (props) => {
           id: doc.id,
           ...doc.data(),
         }));
-        props.setOrder(arrayData);
-      } catch (error) {
-      }
+        setOrder(arrayData);
+      } catch (error) {}
     };
     getData();
   }, []);
   const detailkitchen = (item) => {
-    props.history.push("/DetailKitchen");
-    props.setIdOrder(item)
+    history.push("/DetailKitchen");
+    setIdOrder(item);
   };
 
   return (
     <div className="container mt-5">
-      <div className="box1">
+      <div className="main-container">
         <div className="text-center">
           <img alt="" src={title} className="images"></img>
         </div>
         <div className="mt-5 text-center">
-          <div className="menuTitle">Piso</div>
+          <div className="menu-title">Piso</div>
           <br></br>
           <br></br>
         </div>
         <Table>
-        <thead>
+          <thead>
             <tr>
               <th>Mesa</th>
               <th>
-                <img alt="" src={clock} />
+                <img alt="clock" src={clock} />
               </th>
               <th>
-                <img alt="" src={hourglass} />
+                <img alt="hourglass" src={hourglass} />
               </th>
-              <th>
-                Status
-              </th>
+              <th>Status</th>
               <th>Ver</th>
             </tr>
-            </thead>
-            <tbody>
-              {props.order.map((item) => (
-                <tr key={item.id} className="">
-                  <td className="text-center">{item.table}</td>
-                  <td>{item.incomingHour.split(" ").pop()}</td>
-                  <td>{item.status === 'En preparación' ? <Timer inicio={item.inicio} status={item.status}/> : item.readyAt - item.startAt} min</td>
-                  <td className={`${item.status === 'En preparación' ? 'notReady' : 'ready'}`}>{item.status}</td>
-                  <td className="detailfloor" onClick={() => detailkitchen(item)}>
-                    Ver
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+          </thead>
+          <tbody>
+            {order.map((item) => (
+              <tr key={item.id} className="">
+                <td className="text-center">{item.table}</td>
+                <td>{item.incomingHour.split(" ").pop()}</td>
+                <td>
+                  {item.status === "En preparación" ? (
+                    <Timer inicio={item.inicio} status={item.status} />
+                  ) : (
+                    item.readyAt - item.startAt
+                  )}{" "}
+                  min
+                </td>
+                <td
+                  className={`${
+                    item.status === "En preparación" ? "not-ready-kitchen" : "ready-kitchen"
+                  }`}
+                >
+                  {item.status}
+                </td>
+                <td className="detailfloor" onClick={() => detailkitchen(item)}>
+                  Ver
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </Table>
         <PersonalNavbar />
       </div>

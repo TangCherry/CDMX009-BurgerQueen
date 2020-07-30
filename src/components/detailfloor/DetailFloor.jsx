@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
-import title from "../../assets/images/title.svg";
-import "../../assets/styles/DetailFloor.css";
-import rec from "../../assets/images/yellowrec.svg";
-import bill from "../../assets/images/bill.svg";
-import Table from "react-bootstrap/Table";
-import CheckNavbar from "../checknavbar/CheckNavbar";
 import { withRouter } from "react-router-dom";
+import Table from "react-bootstrap/Table";
 import { db } from "../firebase/firebase";
+import CheckNavbar from "../checknavbar/CheckNavbar";
+import title from "../../assets/images/title.svg";
+import bill from "../../assets/images/bill.svg";
+import "../../assets/styles/DetailFloor.css";
 
-const DetailFloor = (props) => {
+const DetailFloor = ({ idOrder, history }) => {
   let [order, setOrder] = useState([]);
   let [arrayItem, setArrayItem] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = props.idOrder.id;
+        const res = idOrder.id;
         const data = await db.collection("order").where("id", "==", res).get();
         const arrayData = data.docs.map((doc) => ({
           id: doc.id,
@@ -26,17 +25,14 @@ const DetailFloor = (props) => {
           let orderHistory = product.item;
           setArrayItem(orderHistory);
         });
-      } catch (error) {
-      }
+      } catch (error) {}
     };
     getData();
   }, []);
-  const floor = () => {
-    props.history.push("/DetailFloor");
-  };
+  
   const closeOrder = async () => {
-    const res = props.idOrder.id;
-    const data = await db
+    const res = idOrder.id;
+    await db
       .collection("order")
       .where("id", "==", res)
       .get()
@@ -45,22 +41,22 @@ const DetailFloor = (props) => {
           doc.ref.update({ openClose: "Cerrada" });
         });
       });
-    const timer = setTimeout(() => {
-      props.history.push("/Floor");
+    setTimeout(() => {
+      history.push("/Floor");
     }, 1000);
   };
   const msjError = () => {
-    alert('La orden no está lista todavía')
+    alert("La orden no está lista todavía");
   };
 
   return (
     <div className="container mt-5">
-      <div className="box1">
+      <div className="main-container">
         <div className="text-center">
           <img alt="" src={title} className="images"></img>
         </div>
         <div className="mt-5 text-center">
-          <div className="menuTitle">Orden</div>
+          <div className="menu-title">Orden</div>
           <br></br>
           <br></br>
         </div>
@@ -108,28 +104,30 @@ const DetailFloor = (props) => {
         <Table>
           <thead>
             {order.map((item) => (
-              <tr key={item.id} className="text-center">   
+              <tr key={item.id} className="text-center">
                 <td className="check">Total: $ {item.check}</td>
               </tr>
             ))}
           </thead>
           <tbody>
-          <tr className="edit">
-            </tr> 
+            <tr className="edit"></tr>
           </tbody>
         </Table>
         <br></br>
         <br></br>
         <br></br>
         {order.map((item) => (
-              <div key={item.id} className="text-center"> 
-                  <img alt="" 
-                  className="check"
-                  onClick={item.status === 'Listo' ? () => closeOrder(): () => msjError()}
-                  src={bill}
-                  ></img>
-              </div>
-            ))}
+          <div key={item.id} className="text-center">
+            <img
+              alt=""
+              className="check"
+              onClick={
+                item.status === "Listo" ? () => closeOrder() : () => msjError()
+              }
+              src={bill}
+            ></img>
+          </div>
+        ))}
         <CheckNavbar />
       </div>
     </div>

@@ -1,7 +1,7 @@
 body {
     background-color : #F49A1A;
   }
-.box1{
+.main-container{
     background-color : white;
     width: 91vw;
     height: 93vh;
@@ -17,12 +17,6 @@ body {
     font-size: 25px;
     font-weight: bold;
 }
-#waiterUser {
-    float: right;
-    font-size: 28px;
-    margin-top: -7%;
-    margin-right: 20%;
-}
 #edit {
     color: #4674B9;
     font-size: 30px;
@@ -30,19 +24,12 @@ body {
 Table {
     width: 100%;
 }
-.check {
-    float: right;
-    margin-right: 5%;
-}
-.numTable{
-    color:black;
-    font-weight: bold;
-}
 .check{
     margin-right: 6%;
     font-weight: bold;
     font-size: (30% + 1vw + 1vh);
     color: blue;
+    float: right;
 }
 .edit{
     margin-left: 20%;

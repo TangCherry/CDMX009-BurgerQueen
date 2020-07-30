@@ -8,11 +8,11 @@ const PersonalNavbar = (props) => {
     props.history.push("/Personal");
   };
   return (
-    <div className="navbarMenu" fixed="bottom">
+    <div className="navbar-menu" fixed="bottom">
       <img
         alt=""
         className="house"
-        src={house}        
+        src={house}
         onClick={() => personal()}
       ></img>
     </div>

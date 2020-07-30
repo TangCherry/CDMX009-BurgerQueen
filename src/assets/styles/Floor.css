@@ -2,7 +2,7 @@ body {
     background-color : #F49A1A;
   }
   
-.box1{
+.main-container{
     background-color : white;
     width: 91vw;
     height: 93vh;
@@ -15,18 +15,12 @@ body {
   margin-left: 4%;
   width: 100%;
 }
-th {
+th{
   font-size: 30px;
   width: 13%;
 }
-td {
+td{
   font-size: 190%;
-}
-.openStatus{
-  color: green;
-}
-.closeStatus{
-  color: red;
 }
 .thMesa{
   width: 100%;
@@ -35,7 +29,7 @@ td {
   color: blue;
 }
 .Close{
-  color: red;
+  color: red ;
 }
 .open{
   color: green;
@@ -43,14 +37,10 @@ td {
 .ready{
   color: green;
 }
-.notReady{
+.not-ready{
   color: red ;
 }
 .trash{
-  width: 5vw;
-  height: 5vh;
-}
-.Trash{
   width: 3.5vw;
   height: 3.5vh;
 }

@@ -1,33 +1,35 @@
 import React from "react";
-import "../../assets/styles/MenuNavbar.css";
-import house from "../../assets/images/house.svg";
 import { withRouter } from "react-router-dom";
-import {agregar} from "../breakfast/Breakfast"
-import { auth, db } from "../firebase/firebase";
+import house from "../../assets/images/house.svg";
+import "../../assets/styles/MenuNavbar.css";
 
-const MenuNavbar = (props) => {
+const MenuNavbar = ({ history, totalQuantity, payment, addOrder, floor }) => {
   const menu = () => {
-    props.history.push("/Menu");
-  }
-  
+    history.push("/Menu");
+  };
+
   return (
     <div className="navbar" fixed="bottom" bg="dark" varian="dark">
       <div className="bill" fixed="bottom">
-      <p id="item">
-          Productos: {props.totalQuantity}  Total: ${props.payment}
+        <p id="item">
+          Productos: {totalQuantity} Total: ${payment}
         </p>
-        <button  
-          type="submit" 
+        <button
+          type="submit"
           className="submit"
-            onClick = {(e)=>{props.addOrder(); props.floor();}} 
-            >Enviar</button>
+          onClick={(e) => {
+            addOrder();
+            floor();
+          }}
+        >
+          Enviar
+        </button>
       </div>
       <div className="houseMenu">
-        <img src={house} onClick={() => menu()} ></img>
+        <img alt='' src={house} onClick={() => menu()}></img>
       </div>
     </div>
   );
 };
 
 export default withRouter(MenuNavbar);
-

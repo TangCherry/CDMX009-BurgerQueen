@@ -24,10 +24,6 @@ body {
     margin-left: 30%;
     margin-top: 20%;
 }
-.box{
-    width: 91vw;
-    height: 93vh;
-  }
 .burger{
     position:absolute;
   width: 91vw;
@@ -69,4 +65,9 @@ position:absolute;
     margin-left: 2%;
     margin-top: 45%;
     font-size: 30px;
+}
+.error{
+    font-size: 20px; 
+    margin-right: 20%;
+    margin-top: -14%;
 }

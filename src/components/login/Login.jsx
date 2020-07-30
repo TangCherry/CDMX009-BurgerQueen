@@ -1,17 +1,17 @@
-import React from "react";
-import "../../assets/styles/Login.css";
+import React, { useCallback, useState } from "react";
+import { withRouter } from "react-router-dom";
+import { auth } from "../firebase/firebase";
 import burger from "../../assets/images/burger.svg";
 import title from "../../assets/images/title.svg";
 import whiteRectangle from "../../assets/images/whiterectangle.svg";
 import user from "../../assets/images/user.svg";
 import padlock from "../../assets/images/padlock.svg";
-import { db, auth } from "../firebase/firebase";
-import { withRouter } from "react-router-dom";
+import "../../assets/styles/Login.css";
 
-const Login = (props) => {
-  const [email, setEmail] = React.useState("");
-  const [pass, setPass] = React.useState("");
-  const [error, setError] = React.useState(null);
+const Login = ({ history }) => {
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [error, setError] = useState(null);
 
   const processData = (e) => {
     e.preventDefault();
@@ -30,13 +30,13 @@ const Login = (props) => {
     setError(null);
   };
 
-  const login = React.useCallback(async () => {
+  const login = useCallback(async () => {
     try {
-      const res = await auth.signInWithEmailAndPassword(email, pass);
+      await auth.signInWithEmailAndPassword(email, pass);
       setEmail("");
       setPass("");
       setError(null);
-      props.history.push("/Personal");
+      history.push("/Personal");
     } catch (error) {
       if (error.code === "auth/invalid-email") {
         setError("Email no registrado");
@@ -48,7 +48,7 @@ const Login = (props) => {
         setError("Contraseña incorrecta");
       }
     }
-  }, [email, pass, props.history]);
+  }, [email, pass, history]);
 
   return (
     <div className="container mt-5">
@@ -61,7 +61,7 @@ const Login = (props) => {
       <img className="logo" src={title} alt="title" />
       <form className="form" onSubmit={processData}>
         <div>
-          {error && <div className="alert alert-danger">{error}</div>}
+          {error && <div className="alert alert-danger error">{error}</div>}
           <img className="user" src={user} alt="user" />
           <input
             type="email"

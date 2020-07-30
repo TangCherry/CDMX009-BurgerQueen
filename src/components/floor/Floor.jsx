@@ -1,18 +1,16 @@
 import React, { useEffect } from "react";
-import title from "../../assets/images/title.svg";
-import "../../assets/styles/Floor.css";
 import { withRouter } from "react-router-dom";
-import { auth, db } from "../firebase/firebase";
+import { db } from "../firebase/firebase";
+import Table from "react-bootstrap/Table";
 import CheckNavbar from "../checknavbar/CheckNavbar";
+import Timer from "../timer/Timer";
 import clock from "../../assets/images/clock1.svg";
 import hourglass from "../../assets/images/hourglass.svg";
 import trash from "../../assets/images/trash.svg";
-import sign from "../../assets/images/sign.svg";
-import Table from "react-bootstrap/Table";
-import DetailFloor from "../detailfloor/DetailFloor";
-import Timer from "../timer/Timer";
+import title from "../../assets/images/title.svg";
+import "../../assets/styles/Floor.css";
 
-const Floor = (props) => {
+const Floor = ({ setOrder, history, setIdOrder, order }) => {
   useEffect(() => {
     const getData = async () => {
       try {
@@ -24,7 +22,7 @@ const Floor = (props) => {
           id: doc.id,
           ...doc.data(),
         }));
-        props.setOrder(arrayData);
+        setOrder(arrayData);
       } catch (error) {
         console.log(error);
       }
@@ -34,7 +32,7 @@ const Floor = (props) => {
   const deleteOrder = async (item) => {
     if (window.confirm("Deseas eliminar esta orden?")) {
       const res = item.id;
-      const data = await db
+      await db
         .collection("order")
         .where("id", "==", res)
         .get()
@@ -44,25 +42,24 @@ const Floor = (props) => {
           });
         });
       console.log("Borrado");
-      const timer = setTimeout(() => {
+      setTimeout(() => {
         window.location.reload(false);
       }, 1000);
     }
-    
   };
   const detailfloor = (item) => {
-    props.history.push("/DetailFloor");
-    props.setIdOrder(item);
+    history.push("/DetailFloor");
+    setIdOrder(item);
   };
 
   return (
     <div className="container mt-5">
-      <div className="box1">
+      <div className="main-container">
         <div className="text-center">
           <img alt="" src={title} className="images"></img>
         </div>
         <div className="mt-5 text-center">
-          <div className="menuTitle">Piso</div>
+          <div className="menu-title">Piso</div>
           <br></br>
           <br></br>
         </div>
@@ -71,10 +68,10 @@ const Floor = (props) => {
             <tr>
               <th>Mesa</th>
               <th>
-                <img alt="" src={clock} />
+                <img alt="clock" src={clock} />
               </th>
               <th>
-                <img alt="" src={hourglass} />
+                <img alt="hourglass" src={hourglass} />
               </th>
               <th>Status</th>
               <th>Cuenta</th>
@@ -83,7 +80,7 @@ const Floor = (props) => {
             </tr>
           </thead>
           <tbody>
-            {props.order.map((item) => (
+            {order.map((item) => (
               <tr key={item.id} className="">
                 <td className="text-center">{item.table}</td>
                 <td>{item.incomingHour.split(" ").pop()}</td>
@@ -97,7 +94,7 @@ const Floor = (props) => {
                 </td>
                 <td
                   className={`${
-                    item.status === "En preparación" ? "notReady" : "ready"
+                    item.status === "En preparación" ? "not-ready" : "ready"
                   }`}
                 >
                   {item.status}
@@ -114,7 +111,7 @@ const Floor = (props) => {
                 </td>
                 <td>
                   <img
-                    className="Trash"
+                    className="trash"
                     alt=""
                     src={trash}
                     onClick={() => deleteOrder(item)}

@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
-import title from "../../assets/images/title.svg";
-import "../../assets/styles/DetailKitchen.css";
-import rec from "../../assets/images/yellowrec.svg";
-import Ready from "../../assets/images/orderReady.svg";
-import Table from "react-bootstrap/Table";
-import NavbarKitchen from "../navbarkitchen/NavbarKitchen";
 import { withRouter } from "react-router-dom";
 import { db } from "../firebase/firebase";
-import Timer from "../timer/Timer";
-const moment = require("moment");
+import Table from "react-bootstrap/Table";
+import NavbarKitchen from "../navbarkitchen/NavbarKitchen";
+import title from "../../assets/images/title.svg";
+import Ready from "../../assets/images/orderReady.svg";
+import "../../assets/styles/DetailKitchen.css";
 
-const DetailKitchen = (props) => {
+const DetailKitchen = ({ idOrder, history }) => {
+  const moment = require("moment");
   let [order, setOrder] = useState([]);
   let [arrayItem, setArrayItem] = useState([]);
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = props.idOrder.id;
+        const res = idOrder.id;
         const data = await db.collection("order").where("id", "==", res).get();
         const arrayData = data.docs.map((doc) => ({
           id: doc.id,
@@ -27,17 +25,16 @@ const DetailKitchen = (props) => {
           let orderHistory = product.item;
           setArrayItem(orderHistory);
         });
-      } catch (error) {
-      }
+      } catch (error) {}
     };
     getData();
   }, []);
-  let [close, setClose] = useState();
+
   const orderReady = async () => {
     let newDate = moment(new Date());
     let readyAt = newDate.hour() * 60 + newDate.minute();
-    const res = props.idOrder.id;
-    const data = await db
+    const res = idOrder.id;
+    await db
       .collection("order")
       .where("id", "==", res)
       .get()
@@ -46,19 +43,19 @@ const DetailKitchen = (props) => {
           doc.ref.update({ status: "Listo", readyAt: readyAt });
         });
       });
-    const timer = setTimeout(() => {
-      props.history.push("/Kitchen");
+    setTimeout(() => {
+      history.push("/Kitchen");
     }, 1000);
   };
 
   return (
     <div className="container mt-5">
-      <div className="box1">
+      <div className="main-container">
         <div className="text-center">
           <img alt="" src={title} className="images"></img>
         </div>
         <div className="mt-5 text-center">
-          <div className="menuTitle">Orden</div>
+          <div className="menu-title">Orden</div>
           <br></br>
           <br></br>
         </div>

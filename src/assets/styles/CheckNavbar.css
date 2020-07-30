@@ -3,14 +3,14 @@
     display: block;
     margin: auto;
 }
-.navbarCheck {
+.navbar-check {
     width: 91%;
     background-color: black;
     position: fixed;
     bottom: 35px;
 }
 .back {
-    width: 6%;
+    width: 100%;
     float: left;
     display: block;
     margin-top: -7%;

@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
-import "../../assets/styles/Meal.css";
-import title from "../../assets/images/title.svg";
 import MenuNavbar from "../menunavbar/MenuNavbar";
 import CounterInput from "react-bootstrap-counter";
-import { auth, db } from "../firebase/firebase";
+import { db } from "../firebase/firebase";
 import { withRouter } from "react-router-dom";
 import shortid from "shortid";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Timer from '../timer/Timer';
-const moment = require('moment');
+import title from "../../assets/images/title.svg";
+import "../../assets/styles/Meal.css";
+const moment = require("moment");
 
-const Meal = (props) => {
+const Meal = ({ user, history }) => {
   let [totalQuantity, setTotalQuantity] = useState(0);
   const [mealItem, setMealItem] = React.useState([]);
   const [payment, setPayment] = useState(0);
   const [product, setProduct] = useState([]);
-  let [order, setOrder] = useState([]);
+  let [order] = useState([]);
   const [table, setTable] = useState([]);
   let [customerName, setCustomerName] = useState([]);
 
@@ -38,37 +37,37 @@ const Meal = (props) => {
   }, []);
 
   const addOrder = () => {
-    let newDate = moment(new Date())
-    let startAt = (newDate.hour()*60) + newDate.minute();
+    let newDate = moment(new Date());
+    let startAt = newDate.hour() * 60 + newDate.minute();
     const newOrder = {
       id: shortid.generate(),
       item: product,
       check: payment,
       totQuantity: totalQuantity,
       table: table,
-      userName: props.user.user,
+      userName: user.user,
       incomingHour: new Date().toLocaleString(),
-      inicio: +(new Date()),
+      inicio: +new Date(),
       startAt: startAt,
       status: "En preparación",
       nameCus: customerName,
       openClose: "Abierta",
     };
-    const conection = db.collection("order").add(newOrder);
-    const conect = db.collection("orderHistory").add(newOrder);
+    db.collection("order").add(newOrder);
+    db.collection("orderHistory").add(newOrder);
   };
   const floor = () => {
-    props.history.push("/Floor");
+    history.push("/Floor");
   };
 
   return (
     <div className="container mt-5">
       <div></div>
-      <div className="box1">
+      <div className="main-container">
         <div className="text-center">
-          <img src={title} className="images"></img>
+          <img alt="" src={title} className="images"></img>
         </div>
-        <div className="textTable  ">
+        <div className="text-table  ">
           No. Mesa
           <select className="select" onChange={(e) => setTable(e.target.value)}>
             <option value="0">0</option>
@@ -93,65 +92,66 @@ const Meal = (props) => {
               </Col>
             </Row>
           </Form>
-          <div className="menuTitle text-center">Menú</div>
+          <div className="menu-title text-center">Menú</div>
           <br></br>
           <br></br>
           <li className="list-group">
             {mealItem.map((item) => (
               <div key={item.uid} className="">
-                <div className="itemText ">{item.item}</div>
-                <div className="priceText  ">$ {item.price}.00</div>
-                  <CounterInput
-                    min={0}
-                    max={100}
-                    onChange={(total) => {
-                      let newProduct;
-                      let add;
-                      let totalPay;
-                      if (product.find((p) => p.productId === item.uid)) {
-                        newProduct = product.map((p) => {
-                          if (p.productId !== item.uid) {
-                            return p;
-                          }
-                          return {
-                            ...p,
-                            quant: total,
-                            payment: total * item.price,
-                          };
-                        });
-                      } else {
-                        newProduct = [
-                          ...product,
-                          {
-                            productId: item.uid,
-                            produItem: item.item,
-                            unitaryPrice: item.price,
-                            quant: total,
-                            payment: total * item.price,
-                          },
-                        ];
-                      }
-                      setProduct(newProduct);
-                      add = newProduct.reduce(
-                        (sum, value) => sum + value.quant,
-                        0
-                      );
-                      setTotalQuantity(add);
-                      {
-                      }
-                      totalPay = newProduct.reduce(
-                        (sum, value) => sum + value.payment,
-                        0
-                      );
-                      setPayment(totalPay);
-                      {
-                      }
-                    }}
-                  />
-                
-                <div className="descriptionText"> ({item.description})</div>
+                <div className="item-text ">{item.item}</div>
+                <div className="price-text  ">$ {item.price}.00</div>
+                <CounterInput
+                  min={0}
+                  max={100}
+                  onChange={(total) => {
+                    let newProduct;
+                    let add;
+                    let totalPay;
+                    if (product.find((p) => p.productId === item.uid)) {
+                      newProduct = product.map((p) => {
+                        if (p.productId !== item.uid) {
+                          return p;
+                        }
+                        return {
+                          ...p,
+                          quant: total,
+                          payment: total * item.price,
+                        };
+                      });
+                    } else {
+                      newProduct = [
+                        ...product,
+                        {
+                          productId: item.uid,
+                          produItem: item.item,
+                          unitaryPrice: item.price,
+                          quant: total,
+                          payment: total * item.price,
+                        },
+                      ];
+                    }
+                    setProduct(newProduct);
+
+                    add = newProduct.reduce(
+                      (sum, value) => sum + value.quant,
+                      0
+                    );
+                    setTotalQuantity(add);
+                    {
+                    }
+                    totalPay = newProduct.reduce(
+                      (sum, value) => sum + value.payment,
+                      0
+                    );
+                    setPayment(totalPay);
+                    {
+                    }
+                  }}
+                />
+
+                <div className="description-text"> ({item.description})</div>
                 <br></br>
-                </div>
+              </div>
             ))}
           </li>
           <MenuNavbar

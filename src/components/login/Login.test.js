@@ -1,14 +1,12 @@
 import React from "react";
-import { Router, withRouter } from "react-router-dom";
+import "@testing-library/jest-dom/extend-expect";
+import { Router, withRouter, BrowserRouter } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import { render, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
 import Login from "./Login";
-import { BrowserRouter } from "react-router-dom";
 
 test("render the img", () => {
   const history = createMemoryHistory();
-
   const { getByAltText } = render(
     <Router history={history}>
       <Login />

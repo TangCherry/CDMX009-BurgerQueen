@@ -2,7 +2,7 @@ body {
     background-color : #F49A1A;
   }
   
-  .box1{
+  .main-container{
     background-color : white;
     width: 91vw;
     height: 93vh;
@@ -11,7 +11,7 @@ body {
     width: 90%;
     height: 0%;
   }
-  .textTable {
+  .text-table {
     font-size: 30px;
     font-weight: bold;
     margin-left: 70%;
@@ -31,30 +31,7 @@ body {
     height: 8%;
     font-size: 20px;
   }
-  .menuTitle {
+  .menu-title {
     font-weight: bold;
     font-size: 50px;
-  }
-  .itemTextMeal{
-    float: left;
-    font-size: calc(60% + 1vw + 1vh);
-    margin-left: 5%;
-      font-weight: bold;
-  }
-  .descriptionTextMeal{
-    float: left;
-    font-size: calc(10% + 1vw + 1vh);
-    margin-top: -3%;
-    width: 75%;
-  }
-  .priceTextMeal{
-    float: right;
-    font-size: calc(15% + 1vw + 1vh);
-     margin-right: 20%;
-    font-weight: bold;
-  }
-  .menuTitle {
-    font-weight: bold;
-    font-size: 50px;
-    
   }
