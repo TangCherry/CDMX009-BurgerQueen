@@ -25,3 +25,4 @@ node_modules
 setupTests.js
 logo.svg
 package-lock.json
+FETCH_HEAD

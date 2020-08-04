@@ -56,7 +56,6 @@ const Personal = ({ history, user }) => {
               className="logout float-xs-left"
               onClick={() => logOut()}
             ></img>
-            <h3>Cerrar Sesión</h3>
           </div>
         </div>
       </div>

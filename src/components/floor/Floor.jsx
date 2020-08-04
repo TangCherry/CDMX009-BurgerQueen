@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { db } from "../firebase/firebase";
+import Swal from 'sweetalert2';
 import Table from "react-bootstrap/Table";
 import CheckNavbar from "../checknavbar/CheckNavbar";
 import Timer from "../timer/Timer";
@@ -29,23 +30,51 @@ const Floor = ({ setOrder, history, setIdOrder, order }) => {
     };
     getData();
   }, []);
+   
+  const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn-success',
+    cancelButton: 'btn-danger'
+  },
+  buttonsStyling: false
+})
   const deleteOrder = async (item) => {
-    if (window.confirm("Deseas eliminar esta orden?")) {
-      const res = item.id;
-      await db
-        .collection("order")
-        .where("id", "==", res)
-        .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            doc.ref.delete();
+    swalWithBootstrapButtons.fire({
+      title: '¿Deseas eliminar la orden?',
+      text: "La orden no se mostrará más",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminala',
+      cancelButtonText: 'No, cancelalo',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        swalWithBootstrapButtons.fire(
+          'Orden eliminada',
+        )
+        const res = item.id;
+        db.collection("order")
+          .where("id", "==", res)
+          .get()
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+              doc.ref.delete();
+            });
           });
-        });
-      console.log("Borrado");
-      setTimeout(() => {
-        window.location.reload(false);
-      }, 1000);
-    }
+        setTimeout(() => {
+          window.location.reload(false);
+        }, 1000);
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelado',
+          'La orden está segura',
+        )
+      }
+    // if (window.confirm("Deseas eliminar esta orden?")) {
+    })
+    // }
   };
   const detailfloor = (item) => {
     history.push("/DetailFloor");

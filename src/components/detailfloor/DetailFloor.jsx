@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
+import Swal from 'sweetalert2';
 import Table from "react-bootstrap/Table";
 import { db } from "../firebase/firebase";
 import CheckNavbar from "../checknavbar/CheckNavbar";
@@ -29,11 +30,29 @@ const DetailFloor = ({ idOrder, history }) => {
     };
     getData();
   }, []);
-  
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn-success',
+      cancelButton: 'btn-danger'
+    },
+    buttonsStyling: false
+  })
   const closeOrder = async () => {
+    swalWithBootstrapButtons.fire({
+      title: '¿Deseas cerrar la orden?',
+      text: "La orden se cerrará",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, cierrala',
+      cancelButtonText: 'No, cancelalo',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        swalWithBootstrapButtons.fire(
+          'Orden cerrada',
+        )
     const res = idOrder.id;
-    await db
-      .collection("order")
+    db.collection("order")
       .where("id", "==", res)
       .get()
       .then(function (querySnapshot) {
@@ -44,9 +63,23 @@ const DetailFloor = ({ idOrder, history }) => {
     setTimeout(() => {
       history.push("/Floor");
     }, 1000);
+    } else if (
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire(
+        'Cancelado',
+        'La orden sigue abierta',
+      )
+    }
+  })
   };
   const msjError = () => {
-    alert("La orden no está lista todavía");
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'La orden no está lista todavía',
+    })
+    // alert("La orden no está lista todavía");
   };
 
   return (

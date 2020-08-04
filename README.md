@@ -33,10 +33,10 @@ Contraseña: burger01
 
 ### PWA
 
-- [ ] Concepto
-- [ ] Utilidad
-- [ ] Que es [Workbox](https://developers.google.com/web/tools/workbox)
-- [ ] Qué es un `serviceWorker`
+- [ ✅ ] [ ✅ ]  Concepto
+- [ ✅ ] [ ✅ ]  Utilidad
+- [ ✅ ] [ ✅ ] Que es [Workbox](https://developers.google.com/web/tools/workbox)
+- [ ✅ ] [ ✅ ]  Qué es un `serviceWorker`
 
 ### React
 

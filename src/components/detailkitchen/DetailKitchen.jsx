@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { db } from "../firebase/firebase";
+import Swal from 'sweetalert2';
 import Table from "react-bootstrap/Table";
 import NavbarKitchen from "../navbarkitchen/NavbarKitchen";
 import title from "../../assets/images/title.svg";
@@ -29,13 +30,31 @@ const DetailKitchen = ({ idOrder, history }) => {
     };
     getData();
   }, []);
-
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn-success',
+      cancelButton: 'btn-danger'
+    },
+    buttonsStyling: false
+  })
   const orderReady = async () => {
+    swalWithBootstrapButtons.fire({
+      title: '¿Deseas entregar la orden?',
+      text: "La orden estará lista",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, envíala',
+      cancelButtonText: 'No, cancelalo',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        swalWithBootstrapButtons.fire(
+          'Orden lista',
+        )
     let newDate = moment(new Date());
     let readyAt = newDate.hour() * 60 + newDate.minute();
     const res = idOrder.id;
-    await db
-      .collection("order")
+    db.collection("order")
       .where("id", "==", res)
       .get()
       .then(function (querySnapshot) {
@@ -46,6 +65,15 @@ const DetailKitchen = ({ idOrder, history }) => {
     setTimeout(() => {
       history.push("/Kitchen");
     }, 1000);
+    } else if (
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire(
+        'Cancelado',
+        'La orden no está lista',
+      )
+    }
+  })
   };
 
   return (

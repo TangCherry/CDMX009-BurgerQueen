@@ -56,8 +56,15 @@ const Breakfast = ({ user, history }) => {
       nameCus: customerName,
       openClose: "Abierta",
     };
+    // if (newOrder.nameCus.length !== 0) {
     db.collection("order").add(newOrder);
     db.collection("orderHistory").add(newOrder);
+    // floor = () => {
+    //   history.push("/Floor");
+    // };
+    // } else {
+    //   console.log("falta nombre");
+    // }
   };
   const floor = () => {
     history.push("/Floor");
