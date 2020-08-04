@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5bb323598318a80bfc47c37e3e0cd872",
+    "revision": "dcc077b66e6e25b6982d79b9b69c3f0b",
     "url": "/CDMX009-BurgerQueen/index.html"
   },
   {
